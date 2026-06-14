@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Анкета-заявка на разработку ТЭО | КВАНТЭНЕРГО</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #eef2f5;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e2b37;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 1280px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 16px 32px -8px rgba(0,0,0,0.12);
+            margin: 0 auto;
+        }
+        .header {
+            background: #0E7C35;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 3px solid #CF1822;
+            border-radius: 24px 24px 0 0;
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-text h1 { color: white; font-size: 1.5rem; font-weight: 700; }
+        .logo-text p { color: rgba(255,255,255,0.9); font-size: 0.8rem; }
+        .badge { background: #9e9e9e; color: white; padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; }
+        .form-body { padding: 20px 24px; }
+        .section {
+            margin-bottom: 28px;
+            border-radius: 16px;
+            background: #f8fafc;
+            padding: 14px 18px;
+            border: 1px solid #e9edf2;
+            page-break-inside: avoid;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-left: 4px solid #CF1822;
+            padding-left: 14px;
+            margin-bottom: 18px;
+            color: #0E7C35;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            border-bottom: 2px dashed #CF1822;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .notice-block {
+            background: #FFF3E0;
+            border-left: 6px solid #CF1822;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            color: #5a3a1a;
+        }
+        .notice-block i { margin-right: 8px; color: #CF1822; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        @media (max-width: 780px) { .grid-3, .grid-4 { grid-template-columns: 1fr; } .form-body { padding: 16px 12px; } }
+        .form-field { display: flex; flex-direction: column; gap: 5px; position: relative; }
+        .form-field label { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: #2c3e50; }
+        .money-wrapper { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .money-wrapper input { flex: 1; }
+        .currency-unit { font-size: 0.75rem; font-weight: 500; background: #eef2f5; padding: 2px 6px; border-radius: 12px; white-space: nowrap; }
+        .percent-display { font-size: 0.7rem; color: #0E7C35; background: #eef5f0; padding: 2px 6px; border-radius: 12px; white-space: nowrap; margin-left: 4px; }
+        input, select, textarea { background: white; border: 1px solid #d0d7de; border-radius: 10px; padding: 8px 10px; font-size: 0.85rem; font-family: inherit; outline: none; transition: 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #0E7C35; box-shadow: 0 0 0 2px rgba(14,124,53,0.15); }
+        .readonly-field { background: #eef5f0; font-weight: 500; }
+        .btn-txt { background: #0E7C35; border: none; color: white; padding: 12px 28px; font-size: 0.95rem; font-weight: 700; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-txt:hover { background: #0a5f2a; }
+        .btn-add-bank, .btn-add-source, .btn-add-gosorgan { background: #0E7C35; border: none; color: white; padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; }
+        .btn-remove-bank, .btn-remove-othercost, .btn-remove-gosorgan { background: #CF1822; border: none; color: white; padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; margin-top: 12px; align-self: flex-end; }
+        .bank-card, .othercost-card, .gosorgan-card { background: white; border-radius: 18px; padding: 16px; margin-bottom: 18px; border: 1px solid #0E7C35; }
+        .funding-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; background: #f0f7f2; padding: 10px; border-radius: 14px; margin-bottom: 10px; }
+        .funding-item { flex: 1; min-width: 150px; }
+        .total-funding-block { background: #eef5f0; border-radius: 16px; padding: 12px 16px; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+        .total-item { flex: 1; text-align: center; background: white; border-radius: 14px; padding: 8px; }
+        .total-item span { font-size: 1.2rem; font-weight: 800; color: #0E7C35; display: block; }
+        .warning-msg { color: #CF1822; font-size: 0.7rem; }
+        .season-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
+        .season-field { display: flex; flex-direction: column; }
+        .oked-reference { margin-top: 12px; background: #f0f4f8; border-radius: 14px; padding: 10px; }
+        .oked-reference summary { font-weight: 700; cursor: pointer; color: #0E7C35; }
+        
+        .oked-reference-list {
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 0.75rem;
+            columns: 2;
+            column-gap: 24px;
+            background: white;
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-top: 6px;
+        }
+        .oked-reference-list span {
+            display: block;
+            margin-bottom: 4px;
+            break-inside: avoid;
+            line-height: 1.35;
+            padding: 1px 0;
+            border-bottom: 1px dotted #e9edf2;
+        }
+        .oked-reference-list span:hover {
+            background: #f0f7f2;
+            cursor: pointer;
+        }
+
+        .error-oked {
+            border-color: #CF1822 !important;
+            background-color: #fff5f5 !important;
+        }
+        .oked-autocomplete-field {
+            position: relative;
+        }
+        .oked-suggestions {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% - 2px);
+            z-index: 1000;
+            max-height: 280px;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid #d7e4dc;
+            border-radius: 12px;
+            box-shadow: 0 14px 30px rgba(40, 40, 40, 0.14);
+            padding: 6px;
+        }
+        .oked-suggestions.open {
+            display: block;
+        }
+        .oked-option {
+            width: 100%;
+            border: 0;
+            background: #ffffff;
+            color: #282828;
+            text-align: left;
+            padding: 8px 10px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            line-height: 1.25;
+        }
+        .oked-option strong {
+            display: inline-block;
+            min-width: 48px;
+            color: #0E7C35;
+            font-family: monospace;
+            font-size: 0.82rem;
+        }
+        .oked-option:hover,
+        .oked-option.active {
+            background: #eef8f1;
+        }
+        .oked-no-results {
+            padding: 8px 10px;
+            color: #CF1822;
+            font-size: 0.78rem;
+        }
+        .oked-option mark {
+            background: rgba(14, 124, 53, 0.14);
+            color: inherit;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+        .oked-description {
+            min-height: 18px;
+            margin-top: 6px;
+            color: #0E7C35;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+
+        
+
+        .brand-logo {
+            background: #ffffff;
+            padding: 6px 8px;
+            border-radius: 12px;
+            height: 54px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            display: block;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+        .signature-block {
+            background: #ffffff;
+            border: 1px solid #dfe5ea;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 16px;
+            text-align: left;
+        }
+        .signature-title {
+            font-weight: 700;
+            color: #0E7C35;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .signature-line-wrap {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
+            gap: 18px;
+            align-items: end;
+        }
+        .signature-line {
+            border-bottom: 2px solid #282828;
+            min-height: 34px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: #7a8793;
+            font-size: 0.75rem;
+            padding-bottom: 4px;
+        }
+        .action-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-csv, .btn-pdf { background: #0E7C35; }
+        .btn-csv:hover, .btn-pdf:hover { background: #0a5f2a; }
+        @media (max-width: 780px) { .signature-line-wrap { grid-template-columns: 1fr; } .brand-logo { height: 46px; max-width: 96px; } }
+        .footer-note { background: #f8fafc; border-radius: 16px; padding: 16px; text-align: center; margin-top: 20px; }
+        .action-bottom { text-align: center; margin: 25px 0 10px; }
+        .costs-group { background: white; border-radius: 14px; padding: 12px; margin-top: 12px; }
+        .othercosts-dynamic { margin-top: 15px; }
+        .btn-add-othercost { background: #0E7C35; border: none; color: white; padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin: 12px 0 8px; }
+        .season-sum-block { margin-top: 12px; font-size: 0.85rem; font-weight: 600; background: #eef2f5; padding: 6px 12px; border-radius: 20px; display: inline-block; }
+        #existingContracts { min-height: 100px; }
+    </style>
+</head>
+<body>
+<div class="form-container" id="pdfContent">
+    <div class="header">
+        <div class="logo-area">
+            <img class="brand-logo" src="data:image/png;base64,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" alt="Логотип КВАНТЭНЕРГО">
+            <div class="logo-text"><h1>КВАНТЭНЕРГО</h1><p>профессиональная разработка бизнес-планов, ТЭО, ФЭО</p></div>
+        </div>
+        <div class="badge"><i class="fas fa-file-signature"></i> Анкета-заявка на разработку ТЭО</div>
+    </div>
+    <div class="form-body">
+        <div class="notice-block">
+            <i class="fas fa-gavel"></i> <strong>ВАЖНО:</strong> Заявитель несет ответственность в соответствии с законодательством Республики Беларусь за достоверность представленных сведений. В рамках разработки технико-экономического обоснования Исполнитель <strong>не проводит и не осуществляет</strong>: маркетинговые исследования, выбор и сравнение технологии, анализ сырья и сырьевой зоны. В проводимых расчетах Исполнитель полностью основывается на исходных данных, представленных Заказчиком. Формат ТЭО (полный или сокращенный) согласуется Заказчиком с кредитным учреждением.
+        </div>
+
+        <form id="teoForm">
+            <!-- ================= РАЗДЕЛ 1. ФОРМАТ ТЭО ================= -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-cogs"></i> Раздел 1. Формат ТЭО</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Вид технико-экономического обоснования</label><select id="teoType"><option>Типовое технико-экономическое обоснование</option><option>Сокращенный вариант технико-экономического обоснования</option></select></div>
+                    <div class="form-field"><label>Срок разработки ТЭО</label><input type="text" id="deadline" readonly class="readonly-field"></div>
+                    <div class="form-field"><label>Содержание ТЭО</label><input type="text" id="contentDesc" readonly class="readonly-field"></div>
+                </div>
+            </div>
+
+            <!-- ================= РАЗДЕЛ 2. ИНФОРМАЦИЯ О ПРОЕКТЕ ================= -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-chart-line"></i> Раздел 2. Информация о проекте</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Наименование, цель проекта, описание</label><textarea rows="2" id="projectDesc" placeholder="Например: Создание цеха по производству мебели, закупка оборудования, расширение ассортимента"></textarea></div>
+                    <div class="form-field"><label>Место реализации проекта</label><input type="text" id="projectPlace" placeholder="Город/район, конкретный адрес"></div>
+                    <div class="form-field"><label>Валюта расчетов</label><select id="currency"><option>белорусский рубль (BYN)</option><option>доллар США (USD)</option><option>евро (EUR)</option><option>российский рубль (RUB)</option><option>другая валюта</option></select></div>
+                    <div class="form-field"><label>Объект финансирования</label><select id="objectFunding"><option>Здания и сооружения</option><option>Передаточные устройства</option><option>Машины и оборудование</option><option>Транспортные средства</option><option>Прочие основные средства</option></select></div>
+                </div>
+
+                <!-- НОВОЕ ПОЛЕ: Описание объекта финансирования -->
+                <div class="form-field" style="margin-bottom: 20px;"><label>Описание объекта финансирования</label><textarea rows="3" id="objectFundingDesc" placeholder="Укажите детали: например, автоматическая линия марки X, здание склада площадью 2000 м², 5 единиц тягачей и т.д."></textarea></div>
+
+                <div class="subtitle">Источники финансирования проекта</div>
+                <div class="funding-row" id="fundingRow">
+                    <div class="funding-item">
+                        <div class="form-field"><label>Кредит банка</label><div class="money-wrapper"><input type="number" step="0.01" id="creditBank" value="0"><span class="currency-unit"></span><span class="percent-display" id="creditBankPct"></span></div></div>
+                    </div>
+                    <div class="funding-item">
+                        <div class="form-field"><label>Собственные средства</label><div class="money-wrapper"><input type="number" step="0.01" id="ownFunds" value="0"><span class="currency-unit"></span><span class="percent-display" id="ownFundsPct"></span></div></div>
+                    </div>
+                    <div class="funding-item">
+                        <div class="form-field"><label>Бюджетное финансирование</label><div class="money-wrapper"><input type="number" step="0.01" id="budgetFunds" value="0"><span class="currency-unit"></span><span class="percent-display" id="budgetFundsPct"></span></div></div>
+                    </div>
+                    <div class="funding-item">
+                        <div class="form-field"><label>Иные источники (указать)</label><div class="money-wrapper"><input type="text" id="otherSourceName" placeholder="наименование" style="flex:1"><input type="number" step="0.01" id="otherFunds" placeholder="сумма" style="flex:1"><span class="currency-unit"></span><span class="percent-display" id="otherFundsPct"></span></div></div>
+                    </div>
+                </div>
+                <div class="total-funding-block">
+                    <div class="total-item"><label>ИТОГО финансирование</label><span id="totalFundingSum">0.00</span> <span id="totalFundingCurrency" class="currency-unit"></span></div>
+                    <div class="total-item"><label>Процент от общих затрат по проекту</label><span id="fundingToProjectPct">0.00</span><span> %</span></div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-field"><label>Нормативный срок службы объекта финансирования (лет)</label><input type="text" id="serviceLife" placeholder="например, 10 лет"></div>
+                    <div class="form-field"><label>Дата ввода объекта в эксплуатацию</label><input type="month" id="commissionDate"></div>
+                    <div class="form-field oked-autocomplete-field">
+                        <label>ОКЭД текущий: код или название</label>
+                        <input type="text" id="okedCurr" autocomplete="off" placeholder="начните вводить код или название, например 46120 или оптовая торговля">
+                        <div id="okedCurrDesc" class="oked-description"></div>
+                        <div id="okedCurrSuggest" class="oked-suggestions" role="listbox"></div>
+                        <div id="okedCurrError" class="warning-msg"></div>
+                    </div>
+                    <div class="form-field oked-autocomplete-field">
+                        <label>ОКЭД цели кредитования: код или название</label>
+                        <input type="text" id="okedTarget" autocomplete="off" placeholder="начните вводить код или название, например 28910 или оборудование">
+                        <div id="okedTargetDesc" class="oked-description"></div>
+                        <div id="okedTargetSuggest" class="oked-suggestions" role="listbox"></div>
+                        <div id="okedTargetError" class="warning-msg"></div>
+                    </div>
+                </div>
+                <details class="oked-reference"><summary><i class="fas fa-book"></i> Справочник кодов ОКЭД (808 кодов)</summary><div class="oked-reference-list" id="okedReferenceList"></div></details>
+
+                <div class="subtitle">Персонал и фонд оплаты труда</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Количество работающих, чел.</label><input type="number" id="workersCount" value="0" placeholder="0"></div>
+                    <div class="form-field"><label>Дата, на которую указана численность</label><input type="text" id="workersDate" placeholder="01.01.2026" value="01.01.2026"></div>
+                    <div class="form-field"><label>Среднемесячная ЗП (текущие), BYN</label><div class="money-wrapper"><input type="number" step="0.01" id="avgSalary" value="0" placeholder="0.00"><span class="currency-unit">BYN</span></div></div>
+                    <div class="form-field"><label>Фонд ЗП (текущие сотрудники), BYN/мес</label><input type="text" id="salaryFundCurrent" readonly class="readonly-field"></div>
+                    <div class="form-field"><label>План по созданию доп. рабочих мест, чел.</label><input type="number" id="newJobs" value="0" placeholder="0"></div>
+                    <div class="form-field"><label>Планируемая ЗП новых единиц, BYN</label><div class="money-wrapper"><input type="number" step="0.01" id="newSalary" value="0" placeholder="0.00"><span class="currency-unit">BYN</span></div></div>
+                    <div class="form-field"><label>Фонд ЗП (новые места), BYN/мес</label><input type="text" id="salaryFundNew" readonly class="readonly-field"></div>
+                </div>
+
+                <div class="form-field"><label>Выбор направления деятельности</label><select id="activityDir"><option>Производство</option><option>Услуги, торговля, общепит, объекты HoReCa</option><option>Транспортные услуги</option><option>Аренда</option><option>Иное (указать)</option></select></div>
+                <!-- Дополнительное поле для Иное (указать) -->
+                <div class="form-field" id="otherActivityField" style="display: none;">
+                    <label>Уточните направление деятельности (иное)</label>
+                    <input type="text" id="otherActivityText" placeholder="Например: IT-услуги, консалтинг, научная деятельность и т.д.">
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-field"><label>Объем в натуральных единицах (шт., услуг, кв.м и т.п.)</label><input type="text" id="naturalVolume" placeholder="например, 5000 шт/мес"></div>
+                    <div class="form-field"><label>Средняя цена за единицу</label><div class="money-wrapper"><input type="number" step="0.01" id="unitPrice" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                </div>
+
+                <!-- Блок ТРАНСПОРТНЫЕ СРЕДСТВА (обертка для управления видимостью) -->
+                <div id="transportBlock">
+                    <div class="subtitle">Для транспортных средств (затраты в валюте расчетов)</div>
+                    <div class="grid-3">
+                        <div class="form-field"><label>Постановка на учет</label><div class="money-wrapper"><input type="number" step="0.01" id="tsRegistration" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Обязательная страховка/год</label><div class="money-wrapper"><input type="number" step="0.01" id="tsInsurance" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>АВТОКАСКО/год</label><div class="money-wrapper"><input type="number" step="0.01" id="tsCasco" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Дорожный налог/год</label><div class="money-wrapper"><input type="number" step="0.01" id="tsRoadTax" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Техосмотр/год</label><div class="money-wrapper"><input type="number" step="0.01" id="tsTechInspect" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Техобслуживание/год</label><div class="money-wrapper"><input type="number" step="0.01" id="tsMaintenance" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    </div>
+                </div>
+
+                <!-- Блок НЕДВИЖИМОСТЬ (обертка для управления видимостью) -->
+                <div id="realEstateBlock">
+                    <div class="subtitle">Для объектов недвижимости (затраты в валюте расчетов)</div>
+                    <div class="grid-2">
+                        <div class="form-field"><label>Проектные/дизайнерские работы</label><div class="money-wrapper"><input type="number" step="0.01" id="reDesignWorks" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Ремонтные работы (капитальные)/год</label><div class="money-wrapper"><input type="number" step="0.01" id="reCapitalRepair" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Ремонтные работы (текущие)/год</label><div class="money-wrapper"><input type="number" step="0.01" id="reCurrentRepair" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    </div>
+                </div>
+
+                <div class="subtitle">Планируемые затраты по проекту (без учета текущей деятельности)</div>
+                <div class="form-field"><label>Общие затраты по проекту</label><div class="money-wrapper"><input type="number" step="0.01" id="projectCostsTotal" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+
+                <div class="subtitle">Затраты на производство и реализацию по проекту, всего</div>
+                <div class="costs-group">
+                    <div class="grid-2">
+                        <div class="form-field"><label>Материальные затраты - всего</label><div class="money-wrapper"><input type="number" step="0.01" id="materialCostsTotal" value="0" readonly class="readonly-field"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>сырье и материалы</label><div class="money-wrapper"><input type="number" step="0.01" id="matRaw" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>покупные комплектующие</label><div class="money-wrapper"><input type="number" step="0.01" id="matComponents" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>топливно-энергетические ресурсы</label><div class="money-wrapper"><input type="number" step="0.01" id="matEnergy" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>работы и услуги производственного характера</label><div class="money-wrapper"><input type="number" step="0.01" id="matServices" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>прочие материальные</label><div class="money-wrapper"><input type="number" step="0.01" id="matOther" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-field"><label>Расходы на оплату труда</label><div class="money-wrapper"><input type="number" step="0.01" id="laborCosts" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Отчисления на соцнужды (ФСЗН+Белгосстрах)</label><div class="money-wrapper"><input type="number" step="0.01" id="socialContrib" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Амортизация ОС и НМА</label><div class="money-wrapper"><input type="number" step="0.01" id="amortization" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>Прочие затраты, всего</label><div class="money-wrapper"><input type="number" step="0.01" id="otherCostsTotal" value="0" readonly class="readonly-field"><span class="currency-unit"></span></div></div>
+                    </div>
+                    <div class="subtitle" style="margin-top:8px">в т.ч. прочие детализация</div>
+                    <div class="grid-3">
+                        <div class="form-field"><label>налоги и неналоговые платежи</label><div class="money-wrapper"><input type="number" step="0.01" id="otherTaxes" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>земельный налог</label><div class="money-wrapper"><input type="number" step="0.01" id="otherLandTax" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>экологический налог</label><div class="money-wrapper"><input type="number" step="0.01" id="otherEcoTax" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>налог на недвижимость</label><div class="money-wrapper"><input type="number" step="0.01" id="otherPropertyTax" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>платежи по страхованию</label><div class="money-wrapper"><input type="number" step="0.01" id="otherInsurance" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>лизинговые платежи</label><div class="money-wrapper"><input type="number" step="0.01" id="otherLeasing" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>услуги других организаций</label><div class="money-wrapper"><input type="number" step="0.01" id="otherServices" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                        <div class="form-field"><label>арендные платежи</label><div class="money-wrapper"><input type="number" step="0.01" id="otherRent" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    </div>
+                    
+                    <!-- ДИНАМИЧЕСКИЕ ДРУГИЕ ЗАТРАТЫ (аналог банков) -->
+                    <div class="othercosts-dynamic" id="otherCostsContainer"></div>
+                    <button type="button" class="btn-add-othercost" id="addOtherCostBtn"><i class="fas fa-plus"></i> Добавить другие затраты</button>
+                    
+                    <div class="form-field"><label>Итого затраты на производство и реализацию (сумма)</label><input type="text" id="totalProdCosts" readonly class="readonly-field"></div>
+                </div>
+
+                <div class="subtitle">Выручка и налоги</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Выручка от реализации (с налогами)</label><div class="money-wrapper"><input type="number" step="0.01" id="revenueTotal" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    <div class="form-field"><label>в т.ч. НДС</label><div class="money-wrapper"><input type="number" step="0.01" id="vatAmount" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    <div class="form-field"><label>налог при УСН</label><div class="money-wrapper"><input type="number" step="0.01" id="usnTax" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    <div class="form-field"><label>единый налог для с/х производителей</label><div class="money-wrapper"><input type="number" step="0.01" id="unifiedAgriTax" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    <div class="form-field"><label>единый налог с ИП</label><div class="money-wrapper"><input type="number" step="0.01" id="unifiedIpTax" value="0" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Доля выручки на экспорт, %</label><input type="number" step="0.1" id="exportShare" value="0" placeholder="0"></div>
+                    <div class="form-field"><label>Выручка на рынке РБ</label><input type="text" id="revenueRB" readonly class="readonly-field"></div>
+                    <div class="form-field"><label>Выручка на экспорт</label><input type="text" id="revenueExport" readonly class="readonly-field"></div>
+                </div>
+
+                <div class="subtitle">Сезонность поступления выручки</div>
+                <div class="form-field"><label><input type="checkbox" id="seasonalityCheck"> Наличие сезонности (скорректировать проценты, сумма 100%)</label></div>
+                <div id="seasonalityBlock" style="display: none;">
+                    <div class="season-grid" id="monthsGrid"></div>
+                    <div id="seasonWarning" class="warning-msg"></div>
+                    <div class="season-sum-block" id="seasonSumDisplay">Текущая сумма: 0.0%</div>
+                </div>
+            </div>
+
+            <!-- РАЗДЕЛ 3. СОГЛАСОВАНИЕ (динамические госорганы) -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-building"></i> Раздел 3. Согласование с госорганами</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Необходимость согласования</label><select id="needApproval"><option>нет</option><option>да</option></select></div>
+                </div>
+                <div id="approvalDynamicBlock" style="display: none;">
+                    <div id="gosOrgansContainer"></div>
+                    <button type="button" class="btn-add-gosorgan" id="addGosOrganBtn"><i class="fas fa-plus"></i> Добавить госорган</button>
+                </div>
+            </div>
+
+            <!-- РАЗДЕЛ 4. КРЕДИТНЫЕ ОРГАНИЗАЦИИ -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-university"></i> Раздел 4. Кредитные организации и условия</div>
+                <div id="banksContainer"></div>
+                <button type="button" class="btn-add-bank" id="addBankBtn"><i class="fas fa-plus"></i> Добавить банк/кредит</button>
+                <div class="form-field" style="margin-top:20px"><label>Действующие кредитные/лизинговые договоры</label>
+                    <textarea rows="4" id="existingContracts" placeholder="Пример: Кредитный договор №123 от 01.01.2025 с ОАО «Банк», сумма 50 000 BYN, срок до 01.01.2027. Лизинговый договор №456 от 15.03.2025, предмет – автомобиль. Укажите также остаток задолженности, ежемесячный платёж и т.п."></textarea>
+                </div>
+            </div>
+
+            <!-- РАЗДЕЛ 5. СВЕДЕНИЯ О ЗАЯВИТЕЛЕ -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-user-edit"></i> Раздел 5. Сведения о заявителе</div>
+                <div class="grid-2">
+                    <div class="form-field"><label>Полное наименование</label><input type="text" id="legalFull" placeholder="ООО «КВАНТЭНЕРГО» или полное наименование организации"></div>
+                    <div class="form-field"><label>Сокращенное наименование</label><input type="text" id="legalShort" placeholder="ООО «КВАНТЭНЕРГО»"></div>
+                    <div class="form-field"><label>Юридический адрес</label><input type="text" id="legalAddress" placeholder="220000, г. Минск, ул. Примерная, д.1"></div>
+                    <div class="form-field"><label>Фактический адрес</label><input type="text" id="factAddress" placeholder="тот же / иной"></div>
+                    <div class="form-field"><label>Телефон, факс, e-mail, сайт</label><input type="text" id="contacts" placeholder="+375 (17) 123-45-67, info@mail.by"></div>
+                    <div class="form-field"><label>Банковские реквизиты, УНП</label><input type="text" id="bankDetails" placeholder="УНП 123456789, р/с BY00… в ЦБУ №123"></div>
+                    <div class="form-field"><label>Ответственный за взаимодействие (ФИО, должность, тел., email)</label><input type="text" id="responsiblePerson" placeholder="Иванов Иван Иванович, главный инженер, +37529 123-45-67, i.ivanov@mail.by"></div>
+                </div>
+            </div>
+
+            <!-- РАЗДЕЛ 6. РУКОВОДИТЕЛЬ -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-user-tie"></i> Раздел 6. Руководитель (право подписи)</div>
+                <div class="grid-4">
+                    <div class="form-field"><label>Должность</label><input type="text" id="directorPosition" placeholder="Генеральный директор"></div>
+                    <div class="form-field"><label>ФИО</label><input type="text" id="directorName" placeholder="Петров Петр Петрович"></div>
+                    <div class="form-field"><label>Телефон руководителя</label><input type="text" id="directorPhone" placeholder="+37529 765-43-21"></div>
+                    <div class="form-field"><label>Основание (устав/приказ)</label><input type="text" id="directorBasis" placeholder="Устав, приказ №1 от 01.01.2020"></div>
+                </div>
+                <div class="grid-2"><div class="form-field"><label>Главный бухгалтер (ФИО)</label><input type="text" id="chiefAccountant" placeholder="Сидорова Анна Ивановна"></div>
+                <div class="form-field"><label>Телефон главного бухгалтера</label><input type="text" id="chiefPhone" placeholder="+37529 111-22-33"></div></div>
+            </div>
+
+            <!-- РАЗДЕЛ 7. ИСТОЧНИК ИНФОРМАЦИИ -->
+            <div class="section"><div class="section-title"><i class="fas fa-info-circle"></i> Раздел 7. Источник информации об ООО «КВАНТЭНЕРГО»</div>
+            <div class="form-field"><label>Откуда узнали о компании</label><input type="text" id="infoSource" placeholder="Например: интернет (Google), рекомендация партнера, конференция, реклама в СМИ и т.д."></div></div>
+
+            <div class="footer-note">
+                <i class="fas fa-check-circle"></i> Настоящим подтверждаем достоверность сведений.
+                <div class="signature-block">
+                    <div class="signature-title"><i class="fas fa-pen-nib"></i> Подписание анкеты</div>
+                    <div class="grid-3">
+                        <div class="form-field"><label>Дата заполнения</label><input type="text" id="dateFill" placeholder="Дата заполнения"></div>
+                        <div class="form-field"><label>Должность уполномоченного лица</label><input type="text" id="authorizedPosition" placeholder="Например: директор"></div>
+                        <div class="form-field"><label>ФИО уполномоченного лица</label><input type="text" id="authorizedFio" placeholder="Иванов Иван Иванович"></div>
+                    </div>
+                    <div class="signature-line-wrap">
+                        <div>
+                            <div class="signature-line">место для подписи</div>
+                            <div style="font-size:0.72rem;color:#65717c;margin-top:5px;text-align:center;">Подпись уполномоченного лица</div>
+                        </div>
+                        <div>
+                            <div class="signature-line">расшифровка подписи / ФИО</div>
+                            <div style="font-size:0.72rem;color:#65717c;margin-top:5px;text-align:center;">ФИО</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="action-bottom">
+                <button type="button" class="btn-txt" id="exportTxtBtn"><i class="fas fa-file-alt"></i> Экспорт в TXT</button>
+                <button type="button" class="btn-txt btn-csv" id="exportCsvBtn"><i class="fas fa-file-csv"></i> Экспорт в CSV</button>
+                <button type="button" class="btn-txt btn-pdf" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> Экспорт в PDF</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ================= ПОЛНЫЙ СПРАВОЧНИК ОКЭД =================
+    // Справочник встроен из загруженного файла «Справочник ОКЭД.txt».
+    const okedList = [
+        "01111 Выращивание зерновых и бобовых культур",
+        "01112 Выращивание семян масличных культур",
+        "01120 Выращивание риса",
+        "01131 Выращивание картофеля",
+        "01132 Выращивание сахарной свеклы",
+        "01133 Выращивание грибов",
+        "01139 Выращивание прочих овощей, бахчевых, корнеплодных, клубнеплодных культур",
+        "01140 Выращивание сахарного тростника",
+        "01150 Выращивание табака",
+        "01160 Выращивание лубяных культур",
+        "01191 Выращивание кормовых культур",
+        "01192 Выращивание цветов",
+        "01210 Выращивание винограда",
+        "01220 Выращивание тропических и субтропических фруктов",
+        "01230 Выращивание цитрусовых фруктов",
+        "01240 Выращивание семечковых и косточковых плодов",
+        "01250 Выращивание ягод, орехов и прочих плодов деревьев и кустарников",
+        "01260 Выращивание плодов масличных культур",
+        "01270 Выращивание культур для производства напитков",
+        "01281 Выращивание специй и ароматических культур",
+        "01282 Выращивание лекарственных культур",
+        "01290 Выращивание прочих многолетних культур",
+        "01300 Производство продукции питомников",
+        "01410 Разведение молочного крупного рогатого скота",
+        "01420 Разведение прочего крупного рогатого скота",
+        "01430 Разведение лошадей",
+        "01440 Разведение верблюдов",
+        "01450 Разведение овец и коз",
+        "01460 Разведение свиней",
+        "01470 Разведение сельскохозяйственной птицы",
+        "01490 Разведение прочих видов животных",
+        "01500 Смешанное сельское хозяйство",
+        "01611 Предоставление услуг, связанных с выращиванием продукции растениеводства",
+        "01612 Предоставление услуг, связанных с уходом за сельскохозяйственными угодьями",
+        "01620 Деятельность, способствующая животноводству",
+        "01630 Деятельность по обработке урожая",
+        "01640 Деятельность по обработке семян для посадки",
+        "01700 Охота и отлов, включая предоставление услуг в этих областях",
+        "02100 Лесоводство и прочая лесохозяйственная деятельность",
+        "02200 Лесозаготовки",
+        "02300 Сбор дикорастущей недревесной продукции",
+        "02400 Услуги, связанные с лесоводством и лесозаготовками",
+        "03110 Морское рыболовство",
+        "03120 Пресноводное рыболовство",
+        "03210 Морское рыбоводство",
+        "03220 Пресноводное рыбоводство",
+        "05100 Добыча каменного угля и антрацита",
+        "05200 Добыча бурого угля",
+        "06100 Добыча нефти",
+        "06200 Добыча природного газа",
+        "07100 Добыча железных руд",
+        "07210 Добыча урановой и ториевой руд",
+        "07290 Добыча прочих металлических руд",
+        "08111 Добыча камня для строительства",
+        "08112 Добыча известняка, гипса и мела",
+        "08113 Добыча сланцев",
+        "08121 Добыча песка и гравия",
+        "08122 Добыча глины и каолина",
+        "08910 Добыча минерального сырья для химических производств и производства удобрений",
+        "08920 Добыча торфа",
+        "08930 Добыча соли",
+        "08990 Добыча прочих полезных ископаемых, не включенных в другие группировки",
+        "09100 Предоставление услуг, способствующих добыче нефти и природного газа",
+        "09900 Предоставление услуг, способствующих добыче других полезных ископаемых",
+        "10110 Переработка и консервирование мяса",
+        "10120 Переработка и консервирование мяса сельскохозяйственной птицы",
+        "10130 Производство продуктов из мяса и мяса сельскохозяйственной птицы",
+        "10200 Переработка и консервирование рыбы, ракообразных и моллюсков",
+        "10310 Переработка и консервирование картофеля",
+        "10320 Производство фруктовых и овощных соков",
+        "10390 Прочие виды переработки и консервирования фруктов и овощей",
+        "10411 Производство неочищенных масел и жиров",
+        "10412 Производство рафинированных масел и жиров",
+        "10420 Производство маргарина и аналогичных пищевых жиров",
+        "10511 Переработка молока, кроме консервирования, и производство сыров",
+        "10512 Производство молочных консервов",
+        "10520 Производство мороженого",
+        "10611 Производство муки",
+        "10612 Производство круп",
+        "10613 Производство пищевых продуктов для завтрака из зерна и зернобобовых культур и прочих пищевых продуктов из зерна и зернобобовых культур",
+        "10620 Производство крахмала и продуктов из крахмала",
+        "10710 Производство хлебобулочных изделий и мучных кондитерских изделий недлительного хранения",
+        "10720 Производство сухарных, бараночных, мучных кондитерских изделий и прочих хлебобулочных изделий, предназначенных для длительного хранения",
+        "10730 Производство макаронных изделий",
+        "10810 Производство сахара",
+        "10820 Производство какао, шоколада и сахаристых кондитерских изделий",
+        "10830 Производство чая и кофе",
+        "10840 Производство пряностей и приправ",
+        "10850 Производство готовых пищевых продуктов",
+        "10860 Производство детского питания и диетических пищевых продуктов",
+        "10891 Производство супов, бульонов и яйцепродуктов",
+        "10892 Производство дрожжей",
+        "10899 Производство прочих продуктов питания, не включенных в другие группировки",
+        "10910 Производство готовых кормов и кормовых добавок для сельскохозяйственных животных",
+        "10920 Производство готовых кормов для домашних животных",
+        "11010 Дистилляция, ректификация и смешивание спиртных напитков",
+        "11020 Производство виноградного вина",
+        "11030 Производство сидра и прочих плодовых вин",
+        "11040 Производство прочих недистиллированных напитков из сброженных материалов",
+        "11050 Производство пива",
+        "11060 Производство солода",
+        "11070 Производство безалкогольных напитков, минеральных вод и других вод в бутылках",
+        "12000 Производство табачных изделий",
+        "13101 Подготовка и прядение хлопчатобумажного волокна",
+        "13102 Подготовка и кардное прядение шерстяных волокон",
+        "13103 Подготовка и гребенное прядение шерстяных волокон",
+        "13104 Подготовка и прядение льняного волокна",
+        "13105 Производство швейных ниток",
+        "13109 Подготовка и прядение шелковых и прочих текстильных волокон",
+        "13201 Производство хлопчатобумажных тканей",
+        "13202 Производство шерстяных тканей из волокон кардного прядения",
+        "13203 Производство шерстяных тканей из волокон гребенного прядения",
+        "13204 Производство льняных тканей",
+        "13205 Производство шелковых тканей",
+        "13209 Производство прочих тканей",
+        "13300 Отделка тканей и текстильных изделий",
+        "13910 Производство вязаных и трикотажных полотен",
+        "13920 Производство готовых текстильных изделий, кроме одежды",
+        "13930 Производство ковров и ковровых изделий",
+        "13941 Производство веревок, канатов, бечевок, шпагата",
+        "13942 Производство сетей и изделий из веревок",
+        "13950 Производство нетканых текстильных материалов и изделий, кроме одежды",
+        "13960 Производство различных текстильных изделий, в том числе технического и промышленного назначения",
+        "13991 Производство войлока и фетра",
+        "13999 Производство прочих текстильных изделий, не включенных в другие группировки, кроме войлока и фетра",
+        "14110 Производство одежды из кожи",
+        "14120 Производство спецодежды",
+        "14130 Производство прочей верхней одежды",
+        "14140 Производство нательного белья",
+        "14191 Производство головных уборов",
+        "14199 Производство прочих видов одежды и аксессуаров, не включенных в другие группировки",
+        "14200 Производство меховых изделий",
+        "14310 Производство чулочно-носочных изделий",
+        "14390 Производство прочей вязаной и трикотажной одежды",
+        "15111 Дубление и выделка кожи",
+        "15112 Выделка и крашение меха",
+        "15121 Производство дорожных принадлежностей и аналогичных изделий",
+        "15122 Производство шорно-седельных изделий",
+        "15200 Производство обуви",
+        "16100 Распиловка, строгание и пропитка древесины",
+        "16210 Производство шпона, фанеры, плит и панелей из дерева",
+        "16220 Производство сборных паркетных покрытий",
+        "16231 Производство деревянных строительных конструкций и столярных изделий, кроме сборных зданий",
+        "16232 Производство сборных деревянных зданий",
+        "16240 Производство деревянной тары",
+        "16291 Производство декоративных изделий из дерева",
+        "16292 Производство изделий из пробки, соломки и материалов для плетения",
+        "16299 Производство прочих деревянных изделий",
+        "17110 Производство целлюлозы и древесной массы",
+        "17120 Производство бумаги и картона",
+        "17210 Производство гофрированной бумаги и картона, бумажной и картонной тары",
+        "17220 Производство бумажных изделий хозяйственно-бытового и санитарно-гигиенического назначения",
+        "17230 Производство бумажных канцелярских принадлежностей",
+        "17240 Производство обоев",
+        "17290 Производство прочих изделий из бумаги и картона",
+        "18110 Печатание газет",
+        "18121 Печатание бланков ценных бумаг и документов с определенной степенью защиты, документов с определенной степенью защиты",
+        "18129 Печатание прочей полиграфической продукции, не включенной в другие группировки",
+        "18130 Деятельность по подготовке материалов к печати и распространению",
+        "18140 Брошюровочно-переплетная, отделочная деятельность и сопутствующие услуги",
+        "18200 Тиражирование записанных носителей информации",
+        "19100 Производство продукции коксовых печей",
+        "19201 Производство продуктов нефтепереработки",
+        "19202 Производство торфяных брикетов",
+        "19203 Производство брикетов из лигнита, каменного и бурого угля.",
+        "20110 Производство промышленных газов",
+        "20120 Производство красителей и пигментов",
+        "20130 Производство прочих основных неорганических химических веществ",
+        "20141 Производство этилового спирта",
+        "20149 Производство прочих основных органических химических веществ, не включенных в другие группировки",
+        "20151 Производство удобрений",
+        "20152 Производство азотных соединений",
+        "20160 Производство пластмасс в первичных формах",
+        "20170 Производство синтетического каучука в первичных формах",
+        "20200 Производство пестицидов и прочих агрохимических продуктов",
+        "20301 Производство красок, лаков, эмалей, минеральных пигментов для них",
+        "20302 Производство готовых растворителей и разбавителей красок и лаков",
+        "20410 Производство мыла и моющих, чистящих и полирующих средств",
+        "20420 Производство парфюмерных и косметических средств",
+        "20511 Производство готовых взрывчатых веществ, порошкообразных взрывателей, капсюлей, запалов и прочих пиротехнических изделий",
+        "20512 Производство спичек",
+        "20520 Производство клея",
+        "20530 Производство эфирных масел",
+        "20591 Производство фотоматериалов",
+        "20592 Производство желатина",
+        "20593 Производство материалов, используемых для окончательной обработки текстильных изделий, кожи, бумаги и картона",
+        "20599 Производство прочих химических продуктов",
+        "20600 Производство искусственных и синтетических волокон",
+        "21100 Производство основных фармацевтических продуктов",
+        "21201 Производство фармацевтических препаратов",
+        "21202 Производство лекарственных препаратов для ветеринарии",
+        "21203 Производство медицинских материалов",
+        "22111 Производство резиновых шин, покрышек и камер",
+        "22112 Восстановление резиновых шин и покрышек",
+        "22191 Производство резиновых санитарно-гигиенических и медицинских изделий",
+        "22199 Производство прочих резиновых изделий, не включенных в другие группировки",
+        "22210 Производство пластмассовых плит, полос, труб и профилей",
+        "22220 Производство пластмассовых изделий для упаковки товаров",
+        "22230 Производство пластмассовых изделий, используемых в строительстве",
+        "22290 Производство прочих пластмассовых изделий",
+        "23110 Производство листового стекла",
+        "23120 Формование и обработка листового стекла",
+        "23131 Производство стеклянной тары",
+        "23132 Производство хозяйственно-бытовых изделий из стекла",
+        "23140 Производство стекловолокна",
+        "23191 Производство электротехнического и электровакуумного стекла",
+        "23192 Производство лабораторных, гигиенических или фармацевтических изделий из стекла",
+        "23199 Производство прочих стеклянных изделий, не включенных в другие группировки",
+        "23200 Производство огнеупоров",
+        "23310 Производство керамических покрытий и плит",
+        "23320 Производство кирпича, черепицы и прочих строительных изделий из обожженной глины",
+        "23411 Производство хозяйственных керамических изделий",
+        "23412 Производство декоративных керамических изделий",
+        "23420 Производство керамических санитарно-технических изделий",
+        "23430 Производство керамических электроизоляторов и изолирующей арматуры",
+        "23440 Производство прочих технических керамических изделий",
+        "23490 Производство прочих керамических изделий, не включенных в другие группировки",
+        "23510 Производство цемента",
+        "23521 Производство извести",
+        "23522 Производство строительного гипса",
+        "23611 Производство сборных железобетонных и бетонных конструкций и изделий",
+        "23612 Производство стеновых блоков",
+        "23613 Производство силикатного кирпича",
+        "23620 Производство гипсовых изделий для строительных целей",
+        "23630 Производство готового бетона",
+        "23640 Производство строительных растворов",
+        "23650 Производство изделий из асбестоцемента и волокнистого цемента",
+        "23690 Производство прочих изделий из бетона, строительного гипса и цемента",
+        "23700 Резка, обработка и отделка камня",
+        "23910 Производство абразивных изделий",
+        "23991 Производство асбестотехнических изделий",
+        "23992 Производство мягких кровельных и гидроизоляционных материалов",
+        "23993 Производство изделий из битума и аналогичных материалов",
+        "23999 Производство прочих неметаллических минеральных продуктов, не включенных в другие группировки",
+        "24100 Производство чугуна, стали и ферросплавов",
+        "24200 Производство труб, трубопроводов, профилей, фитингов из стали",
+        "24310 Холодное волочение",
+        "24320 Холодная прокатка лент и узких полос",
+        "24330 Холодная штамповка или гибка",
+        "24340 Производство проволоки",
+        "24410 Производство благородных (драгоценных) металлов",
+        "24420 Производство алюминия",
+        "24430 Производство свинца, цинка и олова",
+        "24440 Производство меди",
+        "24450 Производство прочих цветных металлов",
+        "24460 Переработка ядерного топлива",
+        "24510 Литье чугуна",
+        "24520 Литье стали",
+        "24530 Литье легких металлов",
+        "24540 Литье прочих цветных металлов",
+        "25111 Производство строительных металлических конструкций и их частей",
+        "25112 Производство строительных металлических конструкций сборных строений",
+        "25120 Производство металлических дверей, оконных блоков, рам",
+        "25210 Производство радиаторов и котлов центрального отопления",
+        "25290 Производство металлических цистерн, резервуаров и контейнеров",
+        "25300 Производство паровых и водогрейных котлов, кроме котлов центрального отопления",
+        "25400 Производство оружия и боеприпасов",
+        "25501 Ковка, прессование, штамповка, профилирование металла",
+        "25502 Производство изделий методом порошковой металлургии",
+        "25610 Обработка металлов и нанесение покрытий на металлы",
+        "25620 Обработка металлических изделий с использованием основных технологических процессов машиностроения",
+        "25710 Производство ножевых изделий",
+        "25720 Производство замков, петель и шарниров",
+        "25731 Производство ручных инструментов для использования в сельском и лесном хозяйстве",
+        "25739 Производство прочих инструментов",
+        "25910 Производство металлических бочек и аналогичных емкостей",
+        "25920 Производство упаковки из легких металлов",
+        "25931 Производство изделий из проволоки",
+        "25932 Производство цепей и пружин",
+        "25940 Производство крепежных изделий",
+        "25991 Производство металлического санитарно-технического оборудования",
+        "25992 Производство хозяйственной посуды и кухонного инвентаря из металла",
+        "25999 Производство прочих готовых металлических изделий, не включенных в другие группировки",
+        "26110 Производство электронных элементов",
+        "26120 Производство электронных плат",
+        "26200 Производство компьютеров и периферийного оборудования",
+        "26300 Производство коммуникационного оборудования",
+        "26400 Производство электронной бытовой техники",
+        "26510 Производство инструментов и приборов для измерения, тестирования и навигации",
+        "26520 Производство часов",
+        "26600 Производство облучающего, электромедицинского и электротерапевтического оборудования",
+        "26701 Производство оптических приборов",
+        "26702 Производство фото- и кинооборудования",
+        "26800 Производство магнитных и оптических носителей информации",
+        "27110 Производство электродвигателей, генераторов и трансформаторов",
+        "27120 Производство электрораспределительной и регулирующей аппаратуры",
+        "27200 Производство электрических аккумуляторов и аккумуляторных батарей",
+        "27310 Производство волоконно-оптического кабеля",
+        "27320 Производство прочих изолированных проводов и кабелей",
+        "27330 Производство электромонтажных устройств",
+        "27401 Производство электрических ламп",
+        "27402 Производство осветительного оборудования",
+        "27511 Производство электрической бытовой техники, кроме холодильников и морозильников",
+        "27512 Производство бытовых холодильников и морозильников",
+        "27520 Производство неэлектрической бытовой техники",
+        "27901 Производство электродной продукции",
+        "27902 Производство электроизоляционных изделий",
+        "27903 Производство электросигнального оборудования",
+        "27909 Производство прочего электрооборудования, не включенного в другие группировки",
+        "28110 Производство двигателей и турбин, кроме авиационных, автомобильных и мотоциклетных двигателей",
+        "28120 Производство гидравлического и пневматического оборудования",
+        "28130 Производство прочих насосов и компрессоров",
+        "28140 Производство прочих кранов, клапанов, вентилей",
+        "28151 Производство подшипников",
+        "28152 Производство шестеренок, элементов зубчатых передач и приводов",
+        "28210 Производство печей, горелок, устройств для них",
+        "28221 Производство лифтов",
+        "28222 Производство оборудования непрерывного транспорта",
+        "28229 Производство прочего подъемного и такелажного оборудования",
+        "28230 Производство офисной техники и оборудования (за исключением компьютеров и периферийного оборудования)",
+        "28240 Производство ручных электрических инструментов",
+        "28251 Производство промышленного холодильного оборудования",
+        "28252 Производство промышленного вентиляционного оборудования",
+        "28253 Производство газоочистительного и пылеулавливающего оборудования",
+        "28291 Производство весоизмерительного оборудования",
+        "28292 Производство газогенераторов, аппаратов для дистилляции, фильтрования, очистки",
+        "28293 Производство машин и оборудования для распыления, разбрызгивания жидкостей, порошков",
+        "28294 Производство упаковочных, оберточных машин и оборудования",
+        "28299 Производство прочих машин и оборудования общего назначения, не включенных в другие группировки",
+        "28301 Производство сельскохозяйственных и лесохозяйственных тракторов",
+        "28302 Производство машин и оборудования для животноводства, птицеводства, кормопроизводства",
+        "28309 Производство прочих машин и оборудования для сельского и лесного хозяйства",
+        "28411 Производство станков для обработки металлов, кроме кузнечно-прессового оборудования",
+        "28412 Производство кузнечно-прессового оборудования",
+        "28491 Производство деревообрабатывающего оборудования",
+        "28499 Производство прочих станков и оборудования для обработки твердых материалов, кроме металлов",
+        "28910 Производство машин и оборудования для металлургии",
+        "28921 Производство машин и оборудования для добычи полезных ископаемых",
+        "28922 Производство машин для строительных, общественных и аналогичных работ",
+        "28930 Производство машин и оборудования для производства и переработки продуктов питания, напитков и табачных изделий",
+        "28940 Производство машин и оборудования для изготовления текстильных, швейных, меховых и кожаных изделий",
+        "28950 Производство машин и оборудования для изготовления бумаги и картона",
+        "28960 Производство машин и оборудования для обработки пластмасс и резины",
+        "28991 Производство машин и оборудования для производства стекла и изделий из него",
+        "28992 Производство машин и оборудования для полиграфических производств",
+        "28999 Производство прочих машин и оборудования специального назначения, не включенных в другие группировки",
+        "29101 Производство автомобилей, кроме двигателей для автомобилей",
+        "29102 Производство двигателей для автомобилей",
+        "29201 Производство кузовов для автомобилей",
+        "29202 Производство прицепов и полуприцепов",
+        "29310 Производство электрического и электронного оборудования для автомобилей",
+        "29320 Производство прочих частей и принадлежностей автомобилей",
+        "30110 Строительство судов (кроме прогулочных и спортивных) и плавучих сооружений",
+        "30120 Строительство прогулочных и спортивных лодок",
+        "30200 Производство железнодорожных локомотивов и подвижного состава",
+        "30300 Производство летательных аппаратов, оборудования для них",
+        "30400 Производство военных боевых автомобилей",
+        "30910 Производство мотоциклов и прочих подобных транспортных средств",
+        "30921 Производство велосипедов",
+        "30922 Производство детских колясок",
+        "30923 Производство инвалидных колясок и кресел",
+        "30990 Производство прочих транспортных средств и оборудования, не включенных в другие группировки",
+        "31010 Производство мебели для офисов и предприятий торговли",
+        "31020 Производство кухонной мебели",
+        "31030 Производство матрасов",
+        "31090 Производство прочей мебели",
+        "32110 Чеканка монет",
+        "32120 Производство ювелирных и аналогичных изделий",
+        "32130 Производство бижутерии и аналогичных изделий",
+        "32200 Производство музыкальных инструментов",
+        "32300 Производство спортивных товаров",
+        "32400 Производство игр и игрушек",
+        "32501 Производство ортопедических приспособлений",
+        "32502 Производство офтальмологических изделий",
+        "32503 Производство медицинской, хирургической, стоматологической и ветеринарной мебели",
+        "32509 Производство медицинского и стоматологического оборудования, инструментов и принадлежностей, не включенных в другие группировки",
+        "32910 Производство метел и щеток",
+        "32991 Производство канцелярских изделий",
+        "32999 Производство прочих готовых изделий, не включенных в другие группировки",
+        "33110 Ремонт готовых металлических изделий",
+        "33120 Ремонт машин и оборудования общего и специального назначения",
+        "33130 Ремонт электронного и оптического оборудования",
+        "33140 Ремонт электрического оборудования",
+        "33150 Ремонт, техническое обслуживание судов",
+        "33160 Ремонт, техническое обслуживание летательных аппаратов",
+        "33170 Ремонт, техническое обслуживание прочих транспортных средств и оборудования",
+        "33190 Ремонт прочего оборудования",
+        "33200 Монтаж, установка промышленных машин и оборудования",
+        "35111 Производство электроэнергии тепловыми электростанциями",
+        "35112 Производство электроэнергии гидроэлектростанциями",
+        "35113 Производство электроэнергии атомными электростанциями",
+        "35119 Производство электроэнергии прочими электростанциями",
+        "35120 Передача электроэнергии",
+        "35130 Распределение электроэнергии",
+        "35140 Продажа электроэнергии",
+        "35210 Производство газообразного топлива",
+        "35220 Распределение газообразного топлива по трубопроводам",
+        "35230 Продажа газообразного топлива по трубопроводам",
+        "35300 Производство, передача, распределение и продажа пара и горячей воды; кондиционирование воздуха",
+        "36000 Сбор, обработка и распределение воды",
+        "37000 Сбор и обработка сточных вод",
+        "38110 Сбор неопасных отходов",
+        "38120 Сбор опасных отходов",
+        "38210 Обработка, удаление и захоронение неопасных отходов",
+        "38220 Обработка, обезвреживание, удаление и захоронение опасных отходов",
+        "38310 Разборка машин и оборудования, не подлежащих восстановлению",
+        "38321 Обработка отходов и лома черных металлов",
+        "38322 Обработка отходов и лома цветных металлов",
+        "38323 Обработка неметаллических отходов",
+        "39000 Деятельность по ликвидации загрязнений и прочие услуги в области удаления отходов",
+        "41100 Реализация проектов, связанных со строительством зданий",
+        "41200 Общее строительство зданий",
+        "42110 Строительство автомобильных дорог",
+        "42120 Строительство железных дорог и метро",
+        "42130 Строительство мостов и тоннелей",
+        "42210 Строительство трубопроводов",
+        "42220 Строительство линий электропередач и телекоммуникаций",
+        "42910 Строительство водных сооружений",
+        "42990 Строительство прочих инженерных сооружений, не включенных в другие группировки",
+        "43110 Разборка и снос зданий и сооружений",
+        "43121 Земляные работы",
+        "43122 Взрывные работы",
+        "43130 Разведочное бурение",
+        "43210 Электромонтажные работы",
+        "43220 Санитарно-технические работы",
+        "43291 Изоляционные работы",
+        "43299 Монтаж и установка прочего инженерного оборудования, не включенного в другие группировки",
+        "43310 Штукатурные работы",
+        "43320 Столярные и плотницкие работы",
+        "43330 Устройство покрытий пола и облицовка стен",
+        "43340 Малярные и стекольные работы",
+        "43390 Прочие отделочные работы",
+        "43910 Кровельные работы",
+        "43991 Гидроизоляционные работы",
+        "43992 Аренда строительного оборудования",
+        "43999 Прочие строительные работы, требующие специальных профессий",
+        "45111 Оптовая торговля легковыми автомобилями и грузовыми автомобилями малой грузоподъемности",
+        "45112 Розничная торговля легковыми автомобилями и грузовыми автомобилями малой грузоподъемности",
+        "45191 Оптовая торговля прочими транспортными средствами",
+        "45192 Розничная торговля прочими транспортными средствами",
+        "45200 Техническое обслуживание и ремонт автомобилей",
+        "45310 Оптовая торговля автомобильными деталями, узлами и принадлежностями для автомобилей",
+        "45320 Розничная торговля автомобильными деталями, узлами и принадлежностями для автомобилей",
+        "45401 Оптовая торговля мотоциклами, их деталями, узлами и принадлежностями",
+        "45402 Розничная торговля мотоциклами, их деталями, узлами и принадлежностями",
+        "45403 Техническое обслуживание и ремонт мотоциклов",
+        "46110 Деятельность агентов по оптовой торговле сельскохозяйственным сырьем, живыми животными, текстильным сырьем и полуфабрикатами",
+        "46120 Деятельность агентов по оптовой торговле топливом, рудами, металлами и химическими веществами",
+        "46130 Деятельность агентов по оптовой торговле древесиной и строительными материалами",
+        "46140 Деятельность агентов по оптовой торговле машинами и оборудованием, судами и летательными аппаратами",
+        "46150 Деятельность агентов по оптовой торговле мебелью, бытовыми товарами, скобяными и прочими металлическими изделиями",
+        "46160 Деятельность агентов по оптовой торговле текстильными изделиями, одеждой, обувью, изделиями из кожи и меха",
+        "46170 Деятельность агентов по оптовой торговле продуктами питания, напитками и табачными изделиями",
+        "46180 Деятельность агентов, специализирующихся на оптовой торговле отдельными видами товаров, не включенными в другие группировки",
+        "46190 Деятельность агентов по оптовой торговле товарами широкого ассортимента",
+        "46210 Оптовая торговля зерном, необработанным табаком, семенами и кормами для сельскохозяйственных животных",
+        "46220 Оптовая торговля цветами и другими растениями",
+        "46230 Оптовая торговля живыми животными",
+        "46240 Оптовая торговля шкурами и кожей",
+        "46310 Оптовая торговля фруктами и овощами",
+        "46320 Оптовая торговля мясом и мясными продуктами",
+        "46330 Оптовая торговля молочными продуктами, яйцами, пищевыми маслами и жирами",
+        "46341 Оптовая торговля алкогольными напитками",
+        "46342 Оптовая торговля безалкогольными напитками",
+        "46350 Оптовая торговля табачными изделиями",
+        "46361 Оптовая торговля хлебобулочными изделиями",
+        "46362 Оптовая торговля сахаром, шоколадом и сахаристыми кондитерскими изделиями",
+        "46370 Оптовая торговля кофе, чаем, какао и специями",
+        "46381 Оптовая торговля рыбой и морепродуктами",
+        "46382 Оптовая торговля макаронными изделиями, мукой и крупой",
+        "46389 Оптовая торговля прочими продуктами питания, не включенными в другие группировки",
+        "46390 Неспециализированная оптовая торговля продуктами питания, напитками и табачными изделиями",
+        "46410 Оптовая торговля текстильными изделиями",
+        "46421 Оптовая торговля одеждой",
+        "46422 Оптовая торговля обувью",
+        "46431 Оптовая торговля бытовыми электротоварами",
+        "46432 Оптовая торговля радио- и телевизионным оборудованием",
+        "46440 Оптовая торговля изделиями из керамики и стекла, чистящими средствами",
+        "46450 Оптовая торговля парфюмерными и косметическими средствами",
+        "46460 Оптовая торговля фармацевтическими, ветеринарными, медицинскими и ортопедическими товарами",
+        "46470 Оптовая торговля мебелью, коврами и осветительным оборудованием",
+        "46480 Оптовая торговля часами и ювелирными украшениями",
+        "46490 Оптовая торговля прочими бытовыми товарами",
+        "46510 Оптовая торговля компьютерами, периферийным компьютерным оборудованием и программным обеспечением",
+        "46520 Оптовая торговля электронным и коммуникационным оборудованием и их частями",
+        "46610 Оптовая торговля техникой и оборудованием для сельского и лесного хозяйства",
+        "46620 Оптовая торговля станками",
+        "46630 Оптовая торговля техникой и оборудованием для горнодобывающей промышленности и строительства",
+        "46640 Оптовая торговля техникой для текстильного, швейного и трикотажного производств",
+        "46650 Оптовая торговля офисной мебелью",
+        "46660 Оптовая торговля офисной техникой и оборудованием",
+        "46690 Оптовая торговля прочими машинами и оборудованием, не включенными в другие группировки",
+        "46711 Оптовая торговля сырой нефтью и попутным газом",
+        "46712 Оптовая торговля природным (горючим) газом",
+        "46713 Оптовая торговля углем и лигнитом",
+        "46714 Оптовая торговля торфяными брикетами",
+        "46715 Оптовая торговля бензином, керосином, дизельным топливом",
+        "46716 Оптовая торговля мазутом топочным",
+        "46719 Оптовая торговля прочими видами топлива и подобными продуктами",
+        "46721 Оптовая торговля чугуном, сталью и их литьем, прокатом, в том числе трубами",
+        "46722 Оптовая торговля цветными металлами (кроме драгоценных) и их литьем, прокатом",
+        "46723 Оптовая торговля драгоценными металлами",
+        "46730 Оптовая торговля лесоматериалами, санитарно-техническим оборудованием и строительными материалами",
+        "46740 Оптовая торговля скобяными изделиями, водопроводным и отопительным оборудованием и инвентарем",
+        "46750 Оптовая торговля прочими химическими продуктами",
+        "46760 Оптовая торговля прочими промежуточными продуктами",
+        "46771 Оптовая торговля ломом и отходами черных и цветных металлов",
+        "46772 Оптовая торговля ломом драгоценных металлов и драгоценных камней",
+        "46773 Оптовая торговля неметаллическими отходами и неметаллическим ломом",
+        "46900 Неспециализированная оптовая торговля товарами",
+        "47110 Розничная торговля в неспециализированных магазинах преимущественно продуктами питания, напитками и табачными изделиями",
+        "47190 Прочая розничная торговля в неспециализированных магазинах",
+        "47210 Розничная торговля свежими и переработанными фруктами и овощами в специализированных магазинах",
+        "47221 Розничная торговля мясом (кроме мяса птицы) и мясными продуктами в специализированных магазинах",
+        "47222 Розничная торговля мясом птицы и изделиями из мяса птицы в специализированных магазинах",
+        "47223 Розничная торговля колбасными изделиями и копченостями в специализированных магазинах",
+        "47230 Розничная торговля рыбой и морепродуктами в специализированных магазинах",
+        "47241 Розничная торговля хлебобулочными, сухарными и бараночными изделиями в специализированных магазинах",
+        "47242 Розничная торговля сахаристыми кондитерскими изделиями в специализированных магазинах",
+        "47251 Розничная торговля алкогольными, слабоалкогольными напитками и пивом в специализированных магазинах",
+        "47252 Розничная торговля безалкогольными напитками в специализированных магазинах",
+        "47260 Розничная торговля табачными изделиями в специализированных магазинах",
+        "47291 Розничная торговля молочными продуктами, яйцами, пищевыми маслами и жирами в специализированных магазинах",
+        "47299 Розничная торговля прочими продуктами питания в специализированных магазинах, не включенными в другие группировки",
+        "47300 Розничная торговля топливом в специализированных магазинах",
+        "47410 Розничная торговля компьютерами, периферийным компьютерным оборудованием и программным обеспечением в специализированных магазинах",
+        "47420 Розничная торговля коммуникационным оборудованием в специализированных магазинах",
+        "47430 Розничная торговля радио- и телевизионным оборудованием в специализированных магазинах",
+        "47510 Розничная торговля текстильными изделиями в специализированных магазинах",
+        "47520 Розничная торговля скобяными изделиями, лакокрасочными материалами и стеклом в специализированных магазинах",
+        "47530 Розничная торговля коврами, обоями и напольными покрытиями в специализированных магазинах",
+        "47540 Розничная торговля электрическими бытовыми приборами в специализированных магазинах",
+        "47591 Розничная торговля мебелью в специализированных магазинах",
+        "47592 Розничная торговля осветительным оборудованием и прочими бытовыми товарами в специализированных магазинах",
+        "47610 Розничная торговля книгами в специализированных магазинах",
+        "47620 Розничная торговля газетами, журналами и канцелярскими товарами в специализированных магазинах",
+        "47630 Розничная торговля аудио- и видеозаписями в специализированных магазинах",
+        "47640 Розничная торговля спортивным оборудованием и инвентарем в специализированных магазинах",
+        "47650 Розничная торговля играми и игрушками в специализированных магазинах",
+        "47710 Розничная торговля одеждой в специализированных магазинах",
+        "47721 Розничная торговля обувью в специализированных магазинах",
+        "47722 Розничная торговля кожаными изделиями и дорожными принадлежностями в специализированных магазинах",
+        "47730 Розничная торговля фармацевтическими препаратами в специализированных магазинах (аптеках, ветеринарных аптеках)",
+        "47740 Розничная торговля медицинскими и ортопедическими изделиями в специализированных магазинах",
+        "47750 Розничная торговля парфюмерными и косметическими товарами в специализированных магазинах",
+        "47760 Розничная торговля цветами, комнатными растениями, семенами, удобрениями, домашними животными и кормами для домашних животных в специализированных магазинах",
+        "47770 Розничная торговля часами и ювелирными изделиями в специализированных магазинах",
+        "47780 Прочая розничная торговля непродовольственными товарами в специализированных магазинах",
+        "47790 Розничная торговля подержанными товарами в специализированных магазинах",
+        "47810 Розничная торговля продуктами питания, напитками и табачными изделиями в палатках, киосках и на рынках",
+        "47820 Розничная торговля одеждой, обувью и текстильными изделиями в палатках, киосках и на рынках",
+        "47890 Розничная торговля прочими товарами в палатках, киосках и на рынках",
+        "47910 Розничная торговля путем заказа товаров по почте и через сеть Интернет",
+        "47990 Прочая розничная торговля вне магазинов, палаток, киосков и рынков",
+        "49100 Деятельность пассажирского железнодорожного транспорта в междугородном и международном сообщениях",
+        "49200 Деятельность грузового железнодорожного транспорта",
+        "49311 Городские и пригородные перевозки автобусами в регулярном сообщении",
+        "49312 Перевозки трамваями",
+        "49313 Перевозки троллейбусами",
+        "49314 Перевозки метрополитеном",
+        "49315 Перевозки железнодорожным транспортом в городском и пригородном сообщении",
+        "49316 Перевозки электробусами",
+        "49321 Деятельность такси",
+        "49322 Аренда легковых автомобилей с водителем",
+        "49391 Перевозки автобусами в регулярном сообщении, кроме городских и пригородных",
+        "49392 Прочие перевозки пассажиров автомобильным транспортом в нерегулярном сообщении",
+        "49399 Перевозки прочим пассажирским сухопутным транспортом, не включенные в другие группировки",
+        "49411 Перевозки грузовым автомобильным транспортом",
+        "49419 Прочая деятельность грузового автомобильного транспорта",
+        "49420 Предоставление услуг по переезду (перемещению)",
+        "49501 Транспортирование по трубопроводам нефти",
+        "49502 Транспортирование по трубопроводам нефтепродуктов",
+        "49503 Транспортирование по трубопроводам газа",
+        "49509 Прочая деятельность трубопроводного транспорта",
+        "50100 Деятельность пассажирского морского и прибрежного транспорта",
+        "50200 Деятельность грузового морского и прибрежного транспорта",
+        "50300 Деятельность пассажирского речного транспорта",
+        "50400 Деятельность грузового речного транспорта",
+        "51100 Деятельность пассажирского воздушного транспорта",
+        "51210 Деятельность грузового воздушного транспорта",
+        "51220 Деятельность космического транспорта",
+        "52100 Складирование и хранение",
+        "52211 Деятельность по эксплуатации железных дорог",
+        "52212 Деятельность по эксплуатации автомобильных дорог",
+        "52213 Деятельность терминалов",
+        "52214 Услуги автомобильных стоянок",
+        "52219 Прочая вспомогательная деятельность сухопутного транспорта, не включенная в другие группировки",
+        "52220 Вспомогательная деятельность водного транспорта",
+        "52231 Регулирование использования воздушного пространства",
+        "52239 Прочая деятельность, относящаяся к пассажирским и грузовым перевозкам воздушным транспортом",
+        "52240 Транспортная обработка грузов",
+        "52290 Прочая вспомогательная деятельность в области перевозок",
+        "53100 Почтовая деятельность в рамках предоставления услуг общего пользования",
+        "53201 Деятельность по местной доставке товаров на дом",
+        "53209 Прочая почтовая и курьерская деятельность, не включенная в другие группировки",
+        "55101 Предоставление услуг гостиницами и аналогичными местами для проживания с ресторанами",
+        "55102 Предоставление услуг гостиницами и аналогичными местами для проживания без ресторанов",
+        "55200 Предоставление жилья на выходные дни и прочие периоды краткосрочного проживания",
+        "55300 Предоставление мест для проживания на территории кемпингов, лагерей",
+        "55900 Предоставление услуг прочими местами для проживания",
+        "56100 Деятельность ресторанов",
+        "56210 Обслуживание мероприятий и поставка готовой пищи на заказ",
+        "56290 Прочие услуги по общественному питанию",
+        "56300 Деятельность баров",
+        "58110 Издание книг",
+        "58120 Издание справочников и адресных списков",
+        "58130 Издание газет",
+        "58140 Издание журналов и периодических публикаций",
+        "58191 Издание бланков ценных бумаг и документов с определенной степенью защиты, документов с определенной степенью защиты",
+        "58199 Прочие виды издательской деятельности, не включенные в другие группировки",
+        "58210 Издание компьютерных игр",
+        "58290 Издание прочего программного обеспечения",
+        "59110 Деятельность по производству кино-, видеофильмов и телевизионных программ",
+        "59120 Постпроизводственный этап изготовления кино-, видеофильмов и телевизионных программ",
+        "59130 Деятельность по распространению кино-, видеофильмов и телевизионных программ",
+        "59140 Деятельность по показу кинофильмов",
+        "59200 Деятельность в сфере звукозаписи и издания музыкальных произведений",
+        "60100 Радиовещание",
+        "60200 Деятельность по созданию телевизионных программ и телевещание",
+        "61100 Деятельность в области проводной связи",
+        "61200 Деятельность в области беспроводной связи",
+        "61300 Деятельность в области спутниковой связи",
+        "61900 Прочая деятельность в области телекоммуникаций",
+        "62010 Деятельность в области компьютерного программирования",
+        "62020 Консультационные услуги в области компьютерных технологий",
+        "62030 Деятельность по управлению компьютерными системами",
+        "62090 Прочие виды деятельности в области информационных технологий и обслуживания компьютерной техники",
+        "63111 Деятельность по майнингу цифровых знаков (токенов)",
+        "63119 Прочая обработка данных, предоставление услуг по размещению информации и связанная с этим деятельность",
+        "63120 Деятельность веб-порталов",
+        "63910 Деятельность информационных агентств",
+        "63990 Прочие виды информационного обслуживания, не включенные в другие группировки",
+        "64110 Деятельность центрального банка",
+        "64191 Деятельность коммерческих банков",
+        "64199 Денежное посредничество прочих финансовых организаций",
+        "64200 Деятельность холдинговых компаний",
+        "64300 Деятельность трастовых компаний, инвестиционных фондов и аналогичных финансовых организаций",
+        "64910 Финансовый лизинг",
+        "64920 Предоставление кредита",
+        "64991 Дилерская деятельность по ценным бумагам",
+        "64999 Прочие финансовые услуги, не включенные в другие группировки",
+        "65110 Страхование жизни",
+        "65120 Страхование, не относящееся к страхованию жизни",
+        "65200 Перестрахование",
+        "65300 Дополнительное пенсионное обеспечение",
+        "66111 Деятельность по организации финансовых рынков",
+        "66112 Депозитарная деятельность по ценным бумагам",
+        "66121 Брокерская деятельность по сделкам с ценными бумагами",
+        "66122 Деятельность по доверительному управлению ценными бумагами",
+        "66123 Брокерская деятельность по сделкам с товарами",
+        "66191 Прочая деятельность, осуществляемая с цифровыми знаками (токенами)",
+        "66192 Прочая деятельность поставщиков платежных услуг",
+        "66199 Прочая вспомогательная деятельность в сфере финансовых услуг, кроме страхования и дополнительного пенсионного обеспечения, не включенная в другие группировки",
+        "66210 Деятельность по оценке страховых рисков и убытков",
+        "66220 Деятельность страховых агентов и брокеров",
+        "66290 Прочая вспомогательная деятельность в сфере страхования и дополнительного пенсионного обеспечения",
+        "66300 Деятельность по управлению фондами",
+        "68100 Покупка и продажа собственного недвижимого имущества",
+        "68200 Сдача внаем собственного и арендуемого недвижимого имущества",
+        "68311 Оценка недвижимого имущества, кроме оценки в связи со страхованием",
+        "68319 Прочая деятельность агентств по операциям с недвижимым имуществом",
+        "68320 Управление недвижимым имуществом",
+        "69101 Адвокатская деятельность",
+        "69102 Нотариальные услуги",
+        "69109 Прочая деятельность в области права",
+        "69201 Аудиторская деятельность",
+        "69202 Деятельность в области бухгалтерского учета",
+        "69203 Деятельность по налоговому консультированию",
+        "69204 Деятельность временных (антикризисных) управляющих в производстве по делу о несостоятельности или банкротстве и ликвидаторов юридических лиц",
+        "70100 Деятельность головных организаций",
+        "70210 Деятельность по связям с общественностью",
+        "70220 Консультирование по вопросам коммерческой деятельности и прочее консультирование по вопросам управления",
+        "71110 Деятельность в области архитектуры",
+        "71121 Инженерно-техническое проектирование и предоставление технических консультаций в этой области",
+        "71122 Геологическое изучение недр (без научных исследований и разработок)",
+        "71123 Геодезическая и картографическая деятельность (без научных исследований и разработок)",
+        "71200 Технические испытания, исследования, анализ и сертификация",
+        "72110 Научные исследования и разработки в области биотехнологий",
+        "72191 Научные исследования и разработки в области естественных наук",
+        "72192 Научные исследования и разработки в области технических наук",
+        "72200 Научные исследования и разработки в области общественных и гуманитарных наук",
+        "73110 Деятельность по созданию рекламы",
+        "73120 Деятельность по размещению рекламы в средствах массовой информации, на транспортных средствах, наружной рекламы",
+        "73200 Исследование конъюнктуры рынка и изучение общественного мнения",
+        "74100 Специализированные работы по дизайну",
+        "74200 Деятельность в области фотографии",
+        "74300 Деятельность по письменному и устному переводу",
+        "74901 Деятельность по оценке, кроме оценки, связанной с недвижимым имуществом или страхованием",
+        "74909 Иная профессиональная, научная и техническая деятельность",
+        "75000 Ветеринарная деятельность",
+        "77110 Аренда и лизинг легковых автомобилей и грузовых автомобилей малой грузоподъемности",
+        "77120 Аренда прочих автомобильных транспортных средств",
+        "77210 Аренда и лизинг развлекательного и спортивного оборудования",
+        "77220 Прокат видеокассет и дисков",
+        "77290 Аренда и лизинг прочих предметов личного потребления и бытовых товаров",
+        "77310 Аренда и лизинг машин и оборудования для сельского и лесного хозяйства",
+        "77320 Аренда и лизинг строительных машин и оборудования",
+        "77330 Аренда и лизинг офисных машин и оборудования, включая вычислительную технику",
+        "77340 Аренда и лизинг водных транспортных средств и оборудования",
+        "77350 Аренда и лизинг воздушных транспортных средств",
+        "77390 Аренда и лизинг прочих машин, оборудования и материальных активов, не включенных в другие группировки",
+        "77400 Аренда и лизинг продуктов интеллектуальной собственности и аналогичных продуктов, кроме объектов авторского права",
+        "78100 Деятельность агентств по трудоустройству",
+        "78200 Деятельность по предоставлению временной рабочей силы",
+        "78300 Прочая деятельность по обеспечению рабочей силой",
+        "79110 Турагентская деятельность",
+        "79120 Туроператорская деятельность",
+        "79901 Прочие услуги по бронированию",
+        "79902 Экскурсионное обслуживание",
+        "79909 Прочая деятельность, сопутствующая туристической",
+        "80100 Деятельность по обеспечению безопасности частных лиц и имущества",
+        "80200 Деятельность в области систем обеспечения безопасности",
+        "80300 Деятельность по проведению расследований",
+        "81100 Комплексные услуги по обслуживанию зданий",
+        "81210 Общая чистка и уборка зданий",
+        "81220 Прочая (специализированная) чистка и уборка зданий, промышленных машин и оборудования",
+        "81290 Прочие виды услуг по чистке и уборке",
+        "81300 Деятельность по благоустройству и обслуживанию ландшафтных территорий",
+        "82110 Деятельность по предоставлению комплексных офисных административных услуг",
+        "82190 Деятельность по копированию, подготовке документов и прочая специализированная офисная деятельность",
+        "82200 Деятельность телефонных справочно-информационных служб",
+        "82300 Организация конференций и профессиональных выставок",
+        "82910 Деятельность агентств по сбору платежей и кредитных бюро",
+        "82920 Деятельность по упаковке товаров",
+        "82990 Прочая деятельность по предоставлению вспомогательных коммерческих услуг, не включенная в другие группировки",
+        "84111 Деятельность центральных органов исполнительной и законодательной власти",
+        "84112 Деятельность исполнительных и распорядительных органов, органов самоуправления областного территориального уровня",
+        "84113 Деятельность исполнительных и распорядительных органов, органов самоуправления базового территориального уровня",
+        "84114 Деятельность исполнительных и распорядительных органов, органов самоуправления первичного территориального уровня",
+        "84115 Управление бюджетно-налоговой сферой",
+        "84116 Таможенная деятельность",
+        "84117 Деятельность в области общегосударственного социально-экономического планирования, прогнозирования и статистики",
+        "84119 Прочие услуги государственного управления общего характера",
+        "84120 Управление социальными программами",
+        "84130 Регулирование и содействие эффективному ведению экономической деятельности",
+        "84210 Международная деятельность",
+        "84220 Оборонная деятельность",
+        "84231 Деятельность, связанная с судами",
+        "84232 Деятельность органов прокуратуры",
+        "84233 Управление тюрьмами",
+        "84240 Деятельность по обеспечению общественного порядка и безопасности",
+        "84250 Деятельность по обеспечению безопасности в чрезвычайных ситуациях",
+        "84300 Деятельность в области обязательного социального страхования",
+        "85100 Дошкольное образование",
+        "85200 Начальное образование",
+        "85310 Общее среднее образование",
+        "85321 Профессионально-техническое образование",
+        "85322 Среднее специальное образование",
+        "85329 Прочее техническое и профессиональное среднее образование, не включенное в другие группировки",
+        "85410 Послесреднее образование",
+        "85421 Высшее образование (без послевузовского)",
+        "85422 Послевузовское образование",
+        "85510 Образование в области физической культуры, спорта и отдыха",
+        "85520 Образование в области культуры",
+        "85530 Деятельность школ подготовки и переподготовки водителей транспортных средств",
+        "85590 Прочие виды образования, не включенные в другие группировки",
+        "85600 Вспомогательные образовательные услуги",
+        "86101 Деятельность организаций, оказывающих стационарную медицинскую помощь",
+        "86102 Деятельность родильных домов, домов ребенка",
+        "86103 Деятельность санаторно-курортных организаций с оказанием услуг медицинскими работниками",
+        "86104 Деятельность организаций, оказывающих амбулаторно-поликлиническую медицинскую помощь",
+        "86210 Общая врачебная практика",
+        "86220 Специализированная врачебная практика",
+        "86230 Стоматологическая деятельность",
+        "86901 Деятельность по охране здоровья, осуществляемая работниками, имеющими среднее специальное медицинское образование",
+        "86902 Деятельность служб скорой (неотложной) медицинской помощи",
+        "86903 Деятельность медицинских реабилитационных экспертных комиссий",
+        "86909 Прочая деятельность по охране здоровья, не включенная в другие группировки",
+        "87100 Предоставление социальных услуг (с услугами средних медицинских работников) с обеспечением проживания",
+        "87200 Предоставление социальных услуг лицам, страдающим психическими расстройствами (заболеваниями), алкогольной или наркотической зависимостью и подобными проблемами с обеспечением проживания",
+        "87300 Предоставление социальных услуг пожилым гражданам и инвалидам с обеспечением проживания",
+        "87900 Предоставление прочих видов социальных услуг с обеспечением проживания",
+        "88100 Предоставление социальных услуг пожилым гражданам и инвалидам без обеспечения проживания",
+        "88910 Дневной уход за детьми",
+        "88990 Прочие социальные услуги без обеспечения проживания, не включенные в другие группировки",
+        "90010 Деятельность в сфере исполнительских искусств",
+        "90020 Деятельность, способствующая проведению культурно-зрелищных мероприятий",
+        "90030 Художественное и литературное творчество",
+        "90040 Деятельность объектов культурной инфраструктуры",
+        "91011 Деятельность библиотек",
+        "91012 Деятельность архивов",
+        "91020 Деятельность музеев",
+        "91030 Деятельность исторических мест и зданий и аналогичных туристических достопримечательностей",
+        "91041 Деятельность ботанических садов",
+        "91042 Деятельность зоологических парков",
+        "91043 Деятельность заповедников, национальных парков, заказников",
+        "92001 Деятельность по организации азартных игр",
+        "92002 Деятельность по организации лотерей и электронных интерактивных игр",
+        "93110 Деятельность физкультурно-спортивных сооружений",
+        "93120 Деятельность спортивных клубов",
+        "93130 Деятельность фитнес-клубов",
+        "93190 Прочая деятельность в области физической культуры и спорта",
+        "93210 Деятельность парков культуры и отдыха, аттракционов",
+        "93290 Прочая деятельность по организации отдыха и развлечений",
+        "94110 Деятельность организаций, основанных на членстве, объединяющих по сферам предпринимательской деятельности",
+        "94120 Деятельность организаций, основанных на членстве, объединяющих по сферам профессиональной деятельности",
+        "94200 Деятельность профессиональных союзов",
+        "94910 Деятельность религиозных организаций",
+        "94920 Деятельность политических организаций",
+        "94990 Деятельность прочих организаций, основанных на членстве, не включенных в другие группировки",
+        "95110 Ремонт компьютеров и периферийного оборудования",
+        "95120 Ремонт коммуникационного оборудования",
+        "95210 Ремонт электронной бытовой техники",
+        "95220 Ремонт бытовой электрической и садовой техники",
+        "95230 Ремонт обуви и изделий из кожи",
+        "95240 Ремонт мебели и предметов интерьера",
+        "95250 Ремонт часов и ювелирных изделий",
+        "95291 Ремонт швейных, трикотажных изделий и головных уборов",
+        "95299 Ремонт прочих предметов личного пользования и бытовых изделий, не включенных в другие группировки",
+        "96010 Стирка, химическая чистка и окрашивание текстильных и меховых изделий",
+        "96020 Предоставление услуг парикмахерскими и салонами красоты",
+        "96030 Организация похорон и предоставление связанных с ними услуг",
+        "96040 Деятельность по обеспечению физического комфорта",
+        "96090 Предоставление прочих индивидуальных услуг, не включенных в другие группировки",
+        "97000 Деятельность частных домашних хозяйств, нанимающих домашнюю прислугу",
+        "98100 Недифференцированная деятельность частных домашних хозяйств по производству товаров для собственного потребления",
+        "98200 Недифференцированная деятельность частных домашних хозяйств по предоставлению услуг для собственного потребления",
+        "99000 Деятельность экстерриториальных организаций и органов"
+];
+
+    const okedRecords = okedList.map(item => {
+        const code = item.slice(0, 5);
+        const title = item.slice(6).trim();
+        const searchText = normalizeOkedSearch(`${code} ${title}`);
+        return { code, title, label: item, searchText };
+    });
+    const okedByCode = new Map(okedRecords.map(item => [item.code, item]));
+
+    const refContainer = document.getElementById('okedReferenceList');
+    refContainer.innerHTML = '';
+    okedList.forEach(code => {
+        const span = document.createElement('span');
+        span.textContent = code;
+        span.addEventListener('click', () => {
+            const active = document.activeElement;
+            const codeOnly = code.slice(0, 5);
+            if (active && (active.id === 'okedCurr' || active.id === 'okedTarget')) {
+                active.value = codeOnly;
+                active.dispatchEvent(new Event('input', { bubbles: true }));
+                active.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        });
+        refContainer.appendChild(span);
+    });
+
+    function normalizeOkedSearch(value) {
+        return String(value || '')
+            .toLowerCase()
+            .replace(/ё/g, 'е')
+            .replace(/[«»“”"'`.,;:()\[\]{}\/\|_+*=!?<>-]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function extractOkedCode(value) {
+        const raw = String(value || '').trim();
+        const exact = raw.match(/^\d{5}$/);
+        if (exact) return raw;
+        const fromLabel = raw.match(/^(\d{5})\s+/);
+        return fromLabel ? fromLabel[1] : '';
+    }
+
+    function closeOkedDropdown(dropdownEl) {
+        if (!dropdownEl) return;
+        dropdownEl.classList.remove('open');
+        dropdownEl.innerHTML = '';
+    }
+
+    function validateOkedField(inputEl, errorEl, descEl, options = {}) {
+        const raw = inputEl.value.trim();
+        const code = extractOkedCode(raw);
+        const found = code ? okedByCode.get(code) : null;
+
+        if (!raw) {
+            errorEl.textContent = '';
+            descEl.textContent = '';
+            inputEl.classList.remove('error-oked');
+            return true;
+        }
+
+        if (found) {
+            inputEl.value = found.code;
+            errorEl.textContent = '';
+            descEl.textContent = found.title;
+            inputEl.classList.remove('error-oked');
+            return true;
+        }
+
+        const query = normalizeOkedSearch(raw);
+        const words = query.split(' ').filter(Boolean);
+        const hasMatches = query && okedRecords.some(item =>
+            item.searchText.includes(query) || words.every(word => item.searchText.includes(word))
+        );
+        errorEl.textContent = hasMatches
+            ? 'Выберите подходящий ОКЭД из выпадающего списка'
+            : '❌ Код или название не найдены в справочнике ОКЭД';
+        descEl.textContent = '';
+        if (options.strict) inputEl.classList.add('error-oked');
+        else inputEl.classList.remove('error-oked');
+        return false;
+    }
+
+    function highlightOkedMatch(text, query) {
+        const safe = String(text).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+        const words = normalizeOkedSearch(query).split(' ').filter(Boolean).slice(0, 4);
+        if (!words.length) return safe;
+        let result = safe;
+        words.forEach(word => {
+            if (word.length < 2) return;
+            const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            result = result.replace(new RegExp(`(${escaped})`, 'ig'), '<mark>$1</mark>');
+        });
+        return result;
+    }
+
+    function renderOkedSuggestions(inputEl, dropdownEl, descEl, errorEl) {
+        const raw = inputEl.value.trim();
+        const query = normalizeOkedSearch(raw);
+        const digitQuery = (raw.match(/\d+/) || [''])[0];
+        dropdownEl.innerHTML = '';
+
+        if (!raw) {
+            closeOkedDropdown(dropdownEl);
+            validateOkedField(inputEl, errorEl, descEl);
+            return;
+        }
+
+        const words = query.split(' ').filter(Boolean);
+        const matches = okedRecords
+            .map(item => {
+                let score = 0;
+                if (digitQuery && item.code.startsWith(digitQuery)) score += 100;
+                if (query && item.searchText.includes(query)) score += 60;
+                if (words.length && words.every(word => item.searchText.includes(word))) score += 40 + words.length;
+                if (query && item.title.toLowerCase().replace(/ё/g, 'е').startsWith(query)) score += 20;
+                return { item, score };
+            })
+            .filter(row => row.score > 0)
+            .sort((a, b) => b.score - a.score || a.item.code.localeCompare(b.item.code))
+            .slice(0, 25)
+            .map(row => row.item);
+
+        if (!matches.length) {
+            dropdownEl.innerHTML = '<div class="oked-no-results">Код или текст не найден в справочнике</div>';
+            dropdownEl.classList.add('open');
+            validateOkedField(inputEl, errorEl, descEl);
+            return;
+        }
+
+        matches.forEach(item => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'oked-option';
+            btn.setAttribute('role', 'option');
+            btn.innerHTML = `<strong>${item.code}</strong> ${highlightOkedMatch(item.title, raw)}`;
+            btn.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                inputEl.value = item.code;
+                descEl.textContent = item.title;
+                errorEl.textContent = '';
+                inputEl.classList.remove('error-oked');
+                closeOkedDropdown(dropdownEl);
+                inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+            dropdownEl.appendChild(btn);
+        });
+        dropdownEl.classList.add('open');
+        validateOkedField(inputEl, errorEl, descEl);
+    }
+
+    function setupOkedAutocomplete(inputEl, errorEl, descEl, dropdownEl) {
+        inputEl.addEventListener('input', () => renderOkedSuggestions(inputEl, dropdownEl, descEl, errorEl));
+        inputEl.addEventListener('focus', () => renderOkedSuggestions(inputEl, dropdownEl, descEl, errorEl));
+        inputEl.addEventListener('blur', () => {
+            setTimeout(() => closeOkedDropdown(dropdownEl), 140);
+            validateOkedField(inputEl, errorEl, descEl, { strict: true });
+        });
+    }
+
+    const okedCurr = document.getElementById('okedCurr');
+    const okedTarget = document.getElementById('okedTarget');
+    const errCurr = document.getElementById('okedCurrError');
+    const errTarget = document.getElementById('okedTargetError');
+    const descCurr = document.getElementById('okedCurrDesc');
+    const descTarget = document.getElementById('okedTargetDesc');
+    const suggestCurr = document.getElementById('okedCurrSuggest');
+    const suggestTarget = document.getElementById('okedTargetSuggest');
+    setupOkedAutocomplete(okedCurr, errCurr, descCurr, suggestCurr);
+    setupOkedAutocomplete(okedTarget, errTarget, descTarget, suggestTarget);
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.oked-autocomplete-field')) {
+            closeOkedDropdown(suggestCurr);
+            closeOkedDropdown(suggestTarget);
+        }
+    });
+
+    function updateTeoFormat() { let isTypical = document.getElementById('teoType').value === 'Типовое технико-экономическое обоснование'; document.getElementById('deadline').value = isTypical ? "до 15 рабочих дней" : "до 10 рабочих дней"; document.getElementById('contentDesc').value = isTypical ? "Содержит текстовую и расчетную часть" : "Содержит только расчетную часть"; }
+    document.getElementById('teoType').addEventListener('change',updateTeoFormat); updateTeoFormat();
+
+    function calcSalaryFunds() { let workers=parseFloat(document.getElementById('workersCount').value)||0, avg=parseFloat(document.getElementById('avgSalary').value)||0; let currentFund=workers*avg; document.getElementById('salaryFundCurrent').value=currentFund.toFixed(2); let newJobs=parseFloat(document.getElementById('newJobs').value)||0, newSal=parseFloat(document.getElementById('newSalary').value)||0; let newFund=newJobs*newSal; document.getElementById('salaryFundNew').value=newFund.toFixed(2); }
+    document.getElementById('workersCount').addEventListener('input',calcSalaryFunds); document.getElementById('avgSalary').addEventListener('input',calcSalaryFunds); document.getElementById('newJobs').addEventListener('input',calcSalaryFunds); document.getElementById('newSalary').addEventListener('input',calcSalaryFunds); calcSalaryFunds();
+
+    // Проценты источников финансирования
+    function updateFundingPercentages() {
+        let credit = parseFloat(document.getElementById('creditBank').value) || 0;
+        let own = parseFloat(document.getElementById('ownFunds').value) || 0;
+        let budget = parseFloat(document.getElementById('budgetFunds').value) || 0;
+        let other = parseFloat(document.getElementById('otherFunds').value) || 0;
+        let total = credit + own + budget + other;
+        document.getElementById('totalFundingSum').innerText = total.toFixed(2);
+        let projectCosts = parseFloat(document.getElementById('projectCostsTotal').value) || 0;
+        let fundingToProjectPct = (projectCosts > 0) ? (total / projectCosts * 100) : 0;
+        document.getElementById('fundingToProjectPct').innerText = fundingToProjectPct.toFixed(2);
+        
+        function setPct(elemId, amount) {
+            let pctSpan = document.getElementById(elemId);
+            if (pctSpan) {
+                let pct = (total > 0) ? (amount / total * 100) : 0;
+                pctSpan.innerText = `(${pct.toFixed(1)}%)`;
+            }
+        }
+        setPct('creditBankPct', credit);
+        setPct('ownFundsPct', own);
+        setPct('budgetFundsPct', budget);
+        setPct('otherFundsPct', other);
+    }
+    document.querySelectorAll('#creditBank, #ownFunds, #budgetFunds, #otherFunds, #projectCostsTotal').forEach(el=>el.addEventListener('input',updateFundingPercentages));
+    updateFundingPercentages();
+
+    function calcRevenueSplit(){ let totalRev=parseFloat(document.getElementById('revenueTotal').value)||0; let exportPct=parseFloat(document.getElementById('exportShare').value)||0; let exportVal=totalRev*exportPct/100; document.getElementById('revenueExport').value=exportVal.toFixed(2); document.getElementById('revenueRB').value=(totalRev-exportVal).toFixed(2); }
+    document.getElementById('revenueTotal').addEventListener('input',calcRevenueSplit); document.getElementById('exportShare').addEventListener('input',calcRevenueSplit); calcRevenueSplit();
+
+    // Материальные затраты
+    function updateMaterialCostsTotal() {
+        let raw = parseFloat(document.getElementById('matRaw').value) || 0;
+        let comp = parseFloat(document.getElementById('matComponents').value) || 0;
+        let energy = parseFloat(document.getElementById('matEnergy').value) || 0;
+        let services = parseFloat(document.getElementById('matServices').value) || 0;
+        let otherMat = parseFloat(document.getElementById('matOther').value) || 0;
+        let totalMat = raw + comp + energy + services + otherMat;
+        document.getElementById('materialCostsTotal').value = totalMat.toFixed(2);
+        calcTotalProdCost();
+    }
+    const materialFields = ['matRaw', 'matComponents', 'matEnergy', 'matServices', 'matOther'];
+    materialFields.forEach(id => { document.getElementById(id).addEventListener('input', updateMaterialCostsTotal); });
+    updateMaterialCostsTotal();
+
+    // Динамические прочие затраты
+    let otherCostItems = [];
+    function renderOtherCosts() {
+        const container = document.getElementById('otherCostsContainer');
+        container.innerHTML = '';
+        otherCostItems.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'othercost-card';
+            card.innerHTML = `
+                <div class="grid-2">
+                    <div class="form-field"><label>Наименование других затрат</label><input type="text" class="othercost-name" value="${escapeHtml(item.name)}" placeholder="например, консультационные услуги, сертификация"></div>
+                    <div class="form-field"><label>Сумма</label><div class="money-wrapper"><input type="number" step="0.01" class="othercost-amount" value="${item.amount || 0}" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                </div>
+                <button type="button" class="btn-remove-othercost" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
+            `;
+            const nameInput = card.querySelector('.othercost-name');
+            const amountInput = card.querySelector('.othercost-amount');
+            nameInput.addEventListener('input', (e) => { otherCostItems[idx].name = e.target.value; updateTotalOtherCosts(); });
+            amountInput.addEventListener('input', (e) => { otherCostItems[idx].amount = parseFloat(e.target.value) || 0; updateTotalOtherCosts(); });
+            card.querySelector('.btn-remove-othercost').addEventListener('click', () => { otherCostItems.splice(idx, 1); renderOtherCosts(); updateTotalOtherCosts(); });
+            container.appendChild(card);
+        });
+        updateTotalOtherCosts();
+    }
+    function updateTotalOtherCosts() {
+        let taxes = parseFloat(document.getElementById('otherTaxes').value) || 0;
+        let land = parseFloat(document.getElementById('otherLandTax').value) || 0;
+        let eco = parseFloat(document.getElementById('otherEcoTax').value) || 0;
+        let prop = parseFloat(document.getElementById('otherPropertyTax').value) || 0;
+        let insur = parseFloat(document.getElementById('otherInsurance').value) || 0;
+        let leasing = parseFloat(document.getElementById('otherLeasing').value) || 0;
+        let services = parseFloat(document.getElementById('otherServices').value) || 0;
+        let rent = parseFloat(document.getElementById('otherRent').value) || 0;
+        let dynamicSum = otherCostItems.reduce((sum, item) => sum + (item.amount || 0), 0);
+        let total = taxes + land + eco + prop + insur + leasing + services + rent + dynamicSum;
+        document.getElementById('otherCostsTotal').value = total.toFixed(2);
+        calcTotalProdCost();
+    }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g,function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    document.getElementById('addOtherCostBtn').addEventListener('click', () => { otherCostItems.push({ name: '', amount: 0 }); renderOtherCosts(); });
+    const staticOtherFields = ['otherTaxes','otherLandTax','otherEcoTax','otherPropertyTax','otherInsurance','otherLeasing','otherServices','otherRent'];
+    staticOtherFields.forEach(id => { document.getElementById(id).addEventListener('input', () => updateTotalOtherCosts()); });
+    renderOtherCosts();
+
+    function calcTotalProdCost(){ 
+        let mat = parseFloat(document.getElementById('materialCostsTotal').value) || 0;
+        let labor = parseFloat(document.getElementById('laborCosts').value) || 0;
+        let soc = parseFloat(document.getElementById('socialContrib').value) || 0;
+        let amort = parseFloat(document.getElementById('amortization').value) || 0;
+        let other = parseFloat(document.getElementById('otherCostsTotal').value) || 0;
+        document.getElementById('totalProdCosts').value = (mat + labor + soc + amort + other).toFixed(2);
+    }
+    const prodCostFields = ['laborCosts', 'socialContrib', 'amortization', 'otherCostsTotal'];
+    prodCostFields.forEach(id => document.getElementById(id).addEventListener('input', calcTotalProdCost));
+    calcTotalProdCost();
+
+    const monthNames=["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"]; let monthInputs=[];
+    function buildSeasonality(){ 
+        let grid=document.getElementById('monthsGrid'); 
+        grid.innerHTML=''; 
+        monthInputs=[]; 
+        monthNames.forEach((m,i)=>{ 
+            let div=document.createElement('div'); 
+            div.className='season-field'; 
+            let lbl=document.createElement('label'); 
+            lbl.innerText=m; 
+            lbl.style.fontSize='0.7rem'; 
+            let inp=document.createElement('input'); 
+            inp.type='number'; 
+            inp.step='0.1'; 
+            inp.value=(100/12).toFixed(1); 
+            inp.id=`month_${i}`; 
+            div.appendChild(lbl); 
+            div.appendChild(inp); 
+            grid.appendChild(div); 
+            monthInputs.push(inp); 
+        }); 
+        let chk=document.getElementById('seasonalityCheck'); 
+        function toggleSeasonVisibility(){ 
+            let enabled=chk.checked; 
+            document.getElementById('seasonalityBlock').style.display = enabled ? 'block' : 'none'; 
+            if(enabled){ 
+                monthInputs.forEach(inp=>{ inp.disabled=false; }); 
+                validateSeason(); 
+            } else { 
+                monthInputs.forEach(inp=>{ inp.disabled=true; }); 
+            } 
+        } 
+        function validateSeason(){ 
+            let sum=0; 
+            monthInputs.forEach(inp=>{ if(!inp.disabled) sum+=parseFloat(inp.value)||0; }); 
+            let warnSpan = document.getElementById('seasonWarning');
+            let sumSpan = document.getElementById('seasonSumDisplay');
+            if(Math.abs(sum-100)>0.5){
+                warnSpan.innerText='⚠️ Сумма должна быть 100%';
+                if(sumSpan) sumSpan.innerHTML = `Текущая сумма: ${sum.toFixed(1)}% (ошибка)`;
+            } else {
+                warnSpan.innerText='✓ Сумма корректна';
+                if(sumSpan) sumSpan.innerHTML = `Текущая сумма: ${sum.toFixed(1)}% (верно)`;
+            }
+        } 
+        chk.addEventListener('change',toggleSeasonVisibility); 
+        monthInputs.forEach(inp=>inp.addEventListener('input',validateSeason)); 
+        toggleSeasonVisibility(); 
+    } 
+    buildSeasonality();
+
+    // Управление видимостью блоков в зависимости от объекта финансирования
+    const transportBlock = document.getElementById('transportBlock');
+    const realEstateBlock = document.getElementById('realEstateBlock');
+    const objectFundingSelect = document.getElementById('objectFunding');
+
+    function updateVisibilityByObjectFunding() {
+        const value = objectFundingSelect.value;
+        if (value === 'Здания и сооружения' || value === 'Передаточные устройства') {
+            transportBlock.style.display = 'none';
+            realEstateBlock.style.display = 'block';
+        } else if (value === 'Транспортные средства') {
+            transportBlock.style.display = 'block';
+            realEstateBlock.style.display = 'none';
+        } else {
+            transportBlock.style.display = 'none';
+            realEstateBlock.style.display = 'none';
+        }
+    }
+    if (objectFundingSelect) {
+        objectFundingSelect.addEventListener('change', updateVisibilityByObjectFunding);
+        updateVisibilityByObjectFunding();
+    }
+
+    // Обработка поля "Иное (указать)" для направления деятельности
+    const activityDirSelect = document.getElementById('activityDir');
+    const otherActivityDiv = document.getElementById('otherActivityField');
+    const otherActivityInput = document.getElementById('otherActivityText');
+
+    function toggleOtherActivityField() {
+        if (activityDirSelect.value === 'Иное (указать)') {
+            otherActivityDiv.style.display = 'flex';
+        } else {
+            otherActivityDiv.style.display = 'none';
+            if (otherActivityInput) otherActivityInput.value = '';
+        }
+    }
+    if (activityDirSelect) {
+        activityDirSelect.addEventListener('change', toggleOtherActivityField);
+        toggleOtherActivityField(); // первоначальная установка
+    }
+
+    let banks=[];
+    function renderBanks(){ let container=document.getElementById('banksContainer'); container.innerHTML=''; banks.forEach((bank,idx)=>{ let card=document.createElement('div'); card.className='bank-card'; card.innerHTML=`<div class="grid-2"><div class="form-field"><label>Кредитующий банк</label><input class="bank-name" value="${escapeHtml(bank.name||'')}" placeholder="ОАО «Беларусбанк»"></div><div class="form-field"><label>Сумма кредита</label><div class="money-wrapper"><input class="bank-sum" type="number" step="0.01" value="${bank.sum||''}" placeholder="0.00"><span class="currency-unit"></span></div></div><div class="form-field"><label>Процентная ставка %</label><input class="bank-rate" value="${escapeHtml(bank.rate||'')}" placeholder="12,5% годовых"></div><div class="form-field"><label>Срок кредита, мес.</label><input class="bank-term" value="${escapeHtml(bank.term||'')}" placeholder="36 мес."></div><div class="form-field"><label>Планируемый месяц получения</label><input class="bank-startMonth" placeholder="ММ.ГГГГ" value="${escapeHtml(bank.startMonth||'')}" placeholder="04.2026"></div><div class="form-field"><label>Начало погашения долга</label><input class="bank-debtStart" value="${escapeHtml(bank.debtStart||'')}" placeholder="05.2027"></div><div class="form-field"><label>Окончание погашения долга</label><input class="bank-debtEnd" value="${escapeHtml(bank.debtEnd||'')}" placeholder="04.2030"></div><div class="form-field"><label>Начало погашения %</label><input class="bank-percStart" value="${escapeHtml(bank.percStart||'')}" placeholder="05.2026"></div><div class="form-field"><label>Окончание погашения %</label><input class="bank-percEnd" value="${escapeHtml(bank.percEnd||'')}" placeholder="04.2030"></div><div class="form-field"><label>ФИО контактного лица</label><input class="bank-contactPerson" value="${escapeHtml(bank.contactPerson||'')}" placeholder="Иванов И.И."></div><div class="form-field"><label>Телефон контактного лица</label><input class="bank-contactPhone" value="${escapeHtml(bank.contactPhone||'')}" placeholder="+37529 123-45-67"></div></div><button type="button" class="btn-remove-bank" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить банк</button>`; container.appendChild(card); let fields=['name','sum','rate','term','startMonth','debtStart','debtEnd','percStart','percEnd','contactPerson','contactPhone']; fields.forEach(f=>{ let inp=card.querySelector(`.bank-${f}`); if(inp) inp.addEventListener('input',(e)=>banks[idx][f]=e.target.value); }); card.querySelector('.btn-remove-bank').addEventListener('click',()=>{ banks.splice(idx,1); renderBanks(); updateCurrencyLabels(); }); }); updateCurrencyLabels(); }
+    document.getElementById('addBankBtn').addEventListener('click',()=>{ banks.push({}); renderBanks(); }); renderBanks();
+
+    // Динамические госорганы
+    let gosOrgans = [];
+    function renderGosOrgans() {
+        const container = document.getElementById('gosOrgansContainer');
+        container.innerHTML = '';
+        gosOrgans.forEach((org, idx) => {
+            const card = document.createElement('div');
+            card.className = 'gosorgan-card';
+            card.innerHTML = `
+                <div class="grid-2">
+                    <div class="form-field"><label>Наименование и дата согласовывающего документа</label><input type="text" class="gos-doc" value="${escapeHtml(org.doc || '')}" placeholder="письмо №12 от 01.03.2025"></div>
+                    <div class="form-field"><label>Наименование госоргана</label><input type="text" class="gos-authority" value="${escapeHtml(org.authority || '')}" placeholder="Минстройархитектуры"></div>
+                    <div class="form-field"><label>Затраты на согласование</label><div class="money-wrapper"><input type="number" step="0.01" class="gos-cost" value="${org.cost || 0}" placeholder="0.00"><span class="currency-unit"></span></div></div>
+                    <div class="form-field"><label>Сроки согласования</label><input type="text" class="gos-duration" value="${escapeHtml(org.duration || '')}" placeholder="30 дней"></div>
+                </div>
+                <button type="button" class="btn-remove-gosorgan" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить госорган</button>
+            `;
+            const docInp = card.querySelector('.gos-doc');
+            const authInp = card.querySelector('.gos-authority');
+            const costInp = card.querySelector('.gos-cost');
+            const durInp = card.querySelector('.gos-duration');
+            docInp.addEventListener('input', (e) => { gosOrgans[idx].doc = e.target.value; });
+            authInp.addEventListener('input', (e) => { gosOrgans[idx].authority = e.target.value; });
+            costInp.addEventListener('input', (e) => { gosOrgans[idx].cost = parseFloat(e.target.value) || 0; });
+            durInp.addEventListener('input', (e) => { gosOrgans[idx].duration = e.target.value; });
+            card.querySelector('.btn-remove-gosorgan').addEventListener('click', () => { gosOrgans.splice(idx, 1); renderGosOrgans(); });
+            container.appendChild(card);
+        });
+    }
+    document.getElementById('addGosOrganBtn').addEventListener('click', () => {
+        gosOrgans.push({ doc: '', authority: '', cost: 0, duration: '' });
+        renderGosOrgans();
+    });
+    const needApproval = document.getElementById('needApproval');
+    const approvalDynamicBlock = document.getElementById('approvalDynamicBlock');
+    function toggleApprovalDynamic() {
+        if (needApproval.value === 'да') {
+            approvalDynamicBlock.style.display = 'block';
+        } else {
+            approvalDynamicBlock.style.display = 'none';
+            gosOrgans = [];
+            renderGosOrgans();
+        }
+    }
+    needApproval.addEventListener('change', toggleApprovalDynamic);
+    toggleApprovalDynamic();
+
+    function updateCurrencyLabels(){ let currencyText = document.getElementById('currency').value; let short = currencyText.split(' ')[0] || 'BYN'; document.querySelectorAll('.currency-unit').forEach(span=>{ span.innerText = short; }); document.getElementById('totalFundingCurrency').innerText = short; }
+    document.getElementById('currency').addEventListener('change', updateCurrencyLabels); updateCurrencyLabels();
+
+    function getCurrencyShort() {
+        const currencyEl = document.getElementById('currency');
+        return (currencyEl?.value || 'BYN').split(' ')[0] || 'BYN';
+    }
+
+    function getLabelForExport(el) {
+        let parent = el.closest('.form-field');
+        if (parent) {
+            let label = parent.querySelector('label');
+            if (label) return label.innerText.trim().replace(/\s*\*?$/, '');
+        }
+        const specialLabels = {
+            'otherSourceName': 'Иные источники (наименование)',
+            'otherFunds': 'Иные источники (сумма)',
+            'salaryFundCurrent': 'Фонд ЗП (текущие сотрудники), BYN/мес',
+            'salaryFundNew': 'Фонд ЗП (новые места), BYN/мес',
+            'totalProdCosts': 'Итого затраты на производство и реализацию (сумма)',
+            'revenueRB': 'Выручка на рынке РБ',
+            'revenueExport': 'Выручка на экспорт',
+            'totalFundingSum': 'ИТОГО финансирование (сумма)',
+            'objectFundingDesc': 'Описание объекта финансирования',
+            'otherActivityText': 'Уточните направление деятельности (иное)',
+            'dateFill': 'Дата заполнения',
+            'authorizedPosition': 'Должность уполномоченного лица',
+            'authorizedFio': 'ФИО уполномоченного лица'
+        };
+        return specialLabels[el.id] || (el.id ? `[${el.id}]` : '');
+    }
+
+    function getValueForExport(el) {
+        if (el.type === 'checkbox') return el.checked ? 'Да' : 'Нет';
+        if (el.tagName === 'SELECT') return el.options[el.selectedIndex]?.text || '';
+        return el.value.trim() || '(не заполнено)';
+    }
+
+    function isMoneyField(field) {
+        return field.type === 'number' && (
+            field.closest('.money-wrapper') ||
+            field.id.includes('Funds') || field.id.includes('Costs') || field.id.includes('Price') ||
+            field.id.includes('Salary') || field.id.includes('Tax') || field.id.includes('Payment') ||
+            field.id.includes('revenue') || field.id.includes('investment')
+        );
+    }
+
+    function getSectionName(el) {
+        const section = el.closest('.section');
+        const title = section?.querySelector('.section-title');
+        return title ? title.innerText.trim().replace(/\s+/g, ' ') : 'Общие сведения';
+    }
+
+    function collectAnketaRows() {
+        const rows = [];
+        const currency = getCurrencyShort();
+        rows.push(['Анкета-заявка на разработку ТЭО', '', '']);
+        rows.push(['Дата выгрузки', new Date().toLocaleString('ru-RU'), '']);
+        rows.push(['', '', '']);
+
+        let allFields = document.querySelectorAll('#teoForm input, #teoForm select, #teoForm textarea');
+        let processedIds = new Set();
+        for (let field of allFields) {
+            if (field.type === 'button' || field.type === 'submit' || field.closest('#banksContainer') || field.closest('#otherCostsContainer') || field.closest('#gosOrgansContainer')) continue;
+            if (field.id && field.id.startsWith('month_')) continue;
+            if (field.id === 'seasonalityCheck') continue;
+            if (!field.id || processedIds.has(field.id)) continue;
+            processedIds.add(field.id);
+            let label = getLabelForExport(field);
+            let value = getValueForExport(field);
+            if (isMoneyField(field) && !isNaN(parseFloat(value)) && value !== '(не заполнено)') value = value + ' ' + currency;
+            rows.push([getSectionName(field), label, value]);
+        }
+
+        rows.push(['', '', '']);
+        rows.push(['Сезонность поступления выручки', 'Статус', document.getElementById('seasonalityCheck').checked ? 'указана' : 'не указана (равномерное распределение)']);
+        if (document.getElementById('seasonalityCheck').checked) {
+            let sum = 0;
+            for (let i = 0; i < monthNames.length; i++) {
+                let inp = document.getElementById(`month_${i}`);
+                if (inp && !inp.disabled) {
+                    let val = parseFloat(inp.value) || 0;
+                    sum += val;
+                    rows.push(['Сезонность поступления выручки', monthNames[i], val.toFixed(1) + '%']);
+                }
+            }
+            rows.push(['Сезонность поступления выручки', 'Сумма', sum.toFixed(1) + '% ' + (Math.abs(sum - 100) > 0.5 ? '(внимание: не 100%)' : '(корректно)')]);
+        }
+
+        rows.push(['', '', '']);
+        if (banks.length > 0) {
+            banks.forEach((b, i) => {
+                const section = `Кредитные организации и условия — банк/кредит №${i + 1}`;
+                rows.push([section, 'Кредитующий банк', b.name || '(не указано)']);
+                rows.push([section, 'Сумма кредита', (b.sum || '0') + ' ' + currency]);
+                rows.push([section, 'Процентная ставка', (b.rate || '') + '%']);
+                rows.push([section, 'Срок кредита, мес.', b.term || '']);
+                rows.push([section, 'Планируемый месяц получения', b.startMonth || '']);
+                rows.push([section, 'Начало погашения долга', b.debtStart || '']);
+                rows.push([section, 'Окончание погашения долга', b.debtEnd || '']);
+                rows.push([section, 'Начало погашения %', b.percStart || '']);
+                rows.push([section, 'Окончание погашения %', b.percEnd || '']);
+                rows.push([section, 'Контактное лицо', b.contactPerson || '']);
+                rows.push([section, 'Телефон контактного лица', b.contactPhone || '']);
+                rows.push(['', '', '']);
+            });
+        } else {
+            rows.push(['Кредитные организации и условия', 'Кредитные организации', 'не добавлены']);
+        }
+
+        if (otherCostItems.length > 0) {
+            rows.push(['', '', '']);
+            otherCostItems.forEach((item, idx) => {
+                rows.push(['Другие затраты (добавленные)', `${idx + 1}. ${item.name || 'Без названия'}`, (item.amount || 0) + ' ' + currency]);
+            });
+        }
+
+        rows.push(['', '', '']);
+        if (needApproval.value === 'да' && gosOrgans.length > 0) {
+            gosOrgans.forEach((org, idx) => {
+                const section = `Согласование с госорганами — госорган №${idx + 1}`;
+                rows.push([section, 'Документ', org.doc || '(не указано)']);
+                rows.push([section, 'Госорган', org.authority || '(не указано)']);
+                rows.push([section, 'Затраты', (org.cost || 0) + ' ' + currency]);
+                rows.push([section, 'Сроки', org.duration || '(не указано)']);
+                rows.push(['', '', '']);
+            });
+        } else if (needApproval.value === 'да') {
+            rows.push(['Согласование с госорганами', 'Статус', 'необходимо, но не добавлено ни одного органа']);
+        } else {
+            rows.push(['Согласование с госорганами', 'Статус', 'не требуется']);
+        }
+
+        rows.push(['', '', '']);
+        rows.push(['Подписание анкеты', 'Дата заполнения', document.getElementById('dateFill').value || '(не заполнено)']);
+        rows.push(['Подписание анкеты', 'Должность уполномоченного лица', document.getElementById('authorizedPosition').value || '(не заполнено)']);
+        rows.push(['Подписание анкеты', 'ФИО уполномоченного лица', document.getElementById('authorizedFio').value || '(не заполнено)']);
+        rows.push(['Подписание анкеты', 'Подпись уполномоченного лица', '____________________________']);
+        return rows;
+    }
+
+    function downloadBlob(content, mimeType, filename) {
+        const blob = new Blob([content], {type: mimeType});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function csvEscape(value) {
+        const str = String(value ?? '');
+        return '"' + str.replace(/"/g, '""') + '"';
+    }
+
+    function htmlEscape(value) {
+        return String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function exportTxt() {
+        const rows = collectAnketaRows();
+        const lines = [];
+        lines.push('='.repeat(80));
+        lines.push('АНКЕТА-ЗАЯВКА НА РАЗРАБОТКУ ТЭО');
+        lines.push('='.repeat(80));
+        for (const row of rows.slice(1)) {
+            if (!row[0] && !row[1] && !row[2]) { lines.push(''); continue; }
+            if (row[0] && !row[1] && !row[2]) { lines.push(row[0]); continue; }
+            const prefix = row[0] ? `${row[0]} — ` : '';
+            lines.push(`${prefix}${row[1]}: ${row[2]}`);
+        }
+        lines.push('');
+        lines.push('='.repeat(80));
+        lines.push('Конец анкеты.');
+        downloadBlob(lines.join('\r\n'), 'text/plain;charset=utf-8', 'anketa_teo_export.txt');
+    }
+
+    function exportCsv() {
+        const rows = collectAnketaRows();
+        const csvRows = [['Раздел', 'Показатель', 'Значение'], ...rows].map(row => row.map(csvEscape).join(';'));
+        downloadBlob('\ufeff' + csvRows.join('\r\n'), 'text/csv;charset=utf-8', 'anketa_teo_export.csv');
+    }
+
+    function exportPdf() {
+        const rows = collectAnketaRows();
+        const logoSrc = document.querySelector('.brand-logo')?.src || '';
+        const tableRows = [['Раздел', 'Показатель', 'Значение'], ...rows]
+            .map((row, index) => '<tr class="' + (index === 0 ? 'head-row' : '') + '">' + row.map(cell => `<td>${htmlEscape(cell)}</td>`).join('') + '</tr>')
+            .join('');
+        const printedAt = new Date().toLocaleString('ru-RU');
+        const html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Анкета-заявка на разработку ТЭО — КВАНТЭНЕРГО</title>
+<style>
+    @page { size: A4; margin: 12mm; }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; color: #282828; margin: 0; background: #fff; }
+    .pdf-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 3px solid #CF1822; padding-bottom: 12px; margin-bottom: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 82px; max-height: 58px; object-fit: contain; }
+    .brand-title { font-size: 20px; font-weight: 800; color: #0E7C35; line-height: 1.1; }
+    .brand-subtitle { font-size: 11px; color: #555; margin-top: 3px; }
+    .doc-title { text-align: right; font-size: 14px; font-weight: 700; color: #282828; }
+    .meta { font-size: 10px; color: #666; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 10px; }
+    td { border: 1px solid #c8d0d8; padding: 5px 6px; vertical-align: top; word-break: break-word; }
+    .head-row td { background: #0E7C35; color: #fff; font-weight: 700; }
+    tr:nth-child(even):not(.head-row) td { background: #F6F6F4; }
+    .signature { margin-top: 24px; page-break-inside: avoid; }
+    .signature-title { font-size: 13px; font-weight: 700; color: #0E7C35; margin-bottom: 14px; }
+    .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .sig-line { height: 42px; border-bottom: 1.6px solid #282828; display: flex; align-items: flex-end; justify-content: center; color: #777; font-size: 10px; padding-bottom: 3px; }
+    .sig-caption { text-align: center; font-size: 10px; color: #555; margin-top: 5px; }
+    .pdf-footer { margin-top: 18px; border-top: 1px solid #c8d0d8; padding-top: 8px; font-size: 9px; color: #666; display: flex; justify-content: space-between; gap: 12px; }
+    @media print { .no-print { display: none !important; } body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+    <div class="pdf-header">
+        <div class="brand">
+            ${logoSrc ? `<img src="${logoSrc}" alt="КВАНТЭНЕРГО">` : ''}
+            <div>
+                <div class="brand-title">КВАНТЭНЕРГО</div>
+                <div class="brand-subtitle">профессиональная разработка бизнес-планов, ТЭО, ФЭО</div>
+            </div>
+        </div>
+        <div class="doc-title">
+            Анкета-заявка на разработку ТЭО
+            <div class="meta">Дата выгрузки: ${htmlEscape(printedAt)}</div>
+        </div>
+    </div>
+    <table>${tableRows}</table>
+    <div class="signature">
+        <div class="signature-title">Подписание анкеты</div>
+        <div class="signature-grid">
+            <div>
+                <div class="sig-line">место для подписи</div>
+                <div class="sig-caption">Подпись уполномоченного лица</div>
+            </div>
+            <div>
+                <div class="sig-line">расшифровка подписи / ФИО</div>
+                <div class="sig-caption">ФИО</div>
+            </div>
+        </div>
+    </div>
+    <div class="pdf-footer">
+        <span>© КВАНТЭНЕРГО</span>
+        <span>Для сохранения выберите в окне печати: «Сохранить как PDF».</span>
+    </div>
+</body>
+</html>`;
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) {
+            alert('Браузер заблокировал окно печати. Разрешите всплывающие окна для этого файла и повторите экспорт в PDF.');
+            return;
+        }
+        printWindow.document.open();
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => printWindow.print(), 400);
+    }
+
+    document.getElementById('exportTxtBtn').addEventListener('click', exportTxt);
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    document.getElementById('exportPdfBtn').addEventListener('click', exportPdf);
+
+
+    document.getElementById('dateFill').value = new Date().toLocaleDateString('ru-RU');
+</script>
+</body>
+</html>
